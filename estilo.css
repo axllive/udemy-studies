@@ -1,0 +1,55 @@
+.nav-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.brand{
+    width: 30%;
+}
+
+.menu{
+    width: 70%;
+    margin-right: 5%;
+    background-color: white;
+    font-weight: bold;
+    color: blueviolet;
+}
+
+.menu ul li{
+    display: inline-block;
+    margin-left: 5rem;
+}
+
+.menu ul{
+    text-align: right;
+}
+
+@media (max-width: 64rem){
+    .menu ul li{
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 51rem){
+    .nav-container{
+        flex-direction: column;
+    }
+
+    .menu, a{
+        width: 100%;
+        background-color: blueviolet;
+        color: white;
+    }
+
+    .menu ul li{
+        text-align: center;
+        margin-left: 0;
+        margin-bottom: 2rem;
+    }
+    .menu ul li:nth-last-child(1) {
+        margin-bottom: 0;
+    }
+    .menu li{
+        width: 100%;
+    }
+}
