@@ -1,0 +1,14 @@
+{
+  "name": "node-studies",
+  "version": "1.0.0",
+  "description": "Estudos node.js from Udemy.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "axllive",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
