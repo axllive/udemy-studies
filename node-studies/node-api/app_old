@@ -1,0 +1,31 @@
+/* const express = require('express');
+const morgan = require('morgan');
+const app = express();
+const port = 3000;
+
+const getLindas = require("./routes/post");
+
+//app.get para iniciar o servidor
+//o primeiro argumento é o root da url
+//o segundo argumento é a função callback para receber
+//a requisição e retornar a resposta
+
+/* app.get("/", (req, res) => {
+    res.send("Whatsupp lindas!✨.")
+}); */
+
+/* const myOwnMiddleware = (req, res, next) => {
+    console.log("middleware applied");
+    next(); //para não travar o fluxo de eventos em loop
+};
+ */
+
+
+//middleware
+/* app.use(morgan('dev'));
+//app.use(myOwnMiddleware);
+
+app.get("/", getLindas);
+
+app.listen(port, () => {console.log(`I'm listening on port: ${port}.`)}); */ 
+
