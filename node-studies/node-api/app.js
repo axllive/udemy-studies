@@ -19,6 +19,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const port = 3000;
 
 dotenv.config();
@@ -34,15 +35,17 @@ mongoose.connection.on('error', err => {
     console.log(`db connection error: ${err.message}`);
 });
 
-const getLindas = require("./routes/post");
-const createPost = require("./routes/post");
+const controller = require("./routes/post");
 
 //middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(expressValidator());
 //app.use(myOwnMiddleware);
 
-app.get("/", getLindas);
-app.post("/post/", createPost);
+app.get("/", controller);
+app.get("/all", controller);
+app.post("/post/", controller);
+app.get("/get/", controller);
 
 app.listen(port, () => {console.log(`I'm listening on port: ${port}.`)});
