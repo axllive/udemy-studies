@@ -1,6 +1,6 @@
 const Post = require('../models/post');
 
-exports.getLindas = (req, res) => {
+exports.getEmpty = (req, res) => {
     res.json({
         posts: [
             {title: 'First post'},
