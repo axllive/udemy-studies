@@ -68,7 +68,13 @@ exports.getAll = (req, res) => {
 };
 
 exports.getOne = (req, res)=> {
-    const posts = Post.findById(req.body).select( "_id title body" ) //custom returns
+    const getId = req.query.id;
+
+    if (!getId) {
+        return res.status(400).json({ error: 'Missing _id parameter' });
+    }
+
+    const posts = Post.findById(getId).select( "_id title body" ) //custom returns
         .then((posts) => {
             res.status(200).json({posts});
         })
