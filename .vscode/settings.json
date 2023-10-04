@@ -1,3 +1,26 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "[!a]*/**": true,
+        "a[!n]*/**": true,
+        "an[!g]*/**": true,
+        "ang[!u]*/**": true,
+        "angu[!l]*/**": true,
+        "angul[!a]*/**": true,
+        "angula[!r]*/**": true,
+        "angular[!-]*/**": true,
+        "angular-[!s]*/**": true,
+        "angular-s[!t]*/**": true,
+        "angular-st[!u]*/**": true,
+        "angular-stu[!d]*/**": true,
+        "angular-stud[!i]*/**": true,
+        "angular-studi[!e]*/**": true,
+        "angular-studie[!s]*/**": true
+    }
 }
