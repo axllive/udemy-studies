@@ -61,3 +61,11 @@ C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debu
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

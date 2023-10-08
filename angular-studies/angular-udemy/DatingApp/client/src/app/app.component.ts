@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Lindas!✨';
   users: any;
-
   constructor( private http:HttpClient ){};
 
   ngOnInit(): void {
