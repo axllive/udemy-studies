@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from './_services/account.service';
+import { User } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +11,28 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Lindas!✨';
   users: any;
-  constructor( private http:HttpClient ){};
+  constructor( private http:HttpClient, private accountService: AccountService ){};
 
   ngOnInit(): void {
+    this.getUsers();
+    this.setCurrentUser();
+  }
+
+  getUsers()
+  {
     this.http.get('https://localhost:5001/api/user').subscribe({
       next: response => this.users = response,
       error: error => { console.log(error) },
       complete: () => { console.log('Request has completed') }
     })
+  }
+
+  setCurrentUser()
+  {
+    const usrStr = localStorage.getItem('user');
+    if (!usrStr) return;
+    const usr : User = JSON.parse(usrStr);
+    this.accountService.setCurrentUser(usr);
   }
 
 }

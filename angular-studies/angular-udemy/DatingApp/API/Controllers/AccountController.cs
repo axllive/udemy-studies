@@ -49,7 +49,7 @@ namespace API.Controllers
         {
             AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
 
-            if (usr == null) return Unauthorized("This guy is doing some shit.");
+            if (usr == null) return Unauthorized("User not found.");
 
             using var hmac = new HMACSHA512(usr.PasswordSalt);
 
