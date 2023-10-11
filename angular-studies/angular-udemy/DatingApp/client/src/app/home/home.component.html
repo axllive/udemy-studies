@@ -2,7 +2,7 @@
     <div *ngIf="!registerMode" style="text-align: center">
         <h1>Find your match</h1>
         <p class="lead">Gurl, where you think you're goin?</p>
-        <div class="text-center">
+        <div *ngIf="!(accountService.currentUser$ | async)" class="text-center">
             <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Register</button>
             <button class="btn btn-primary btn-secondary btn-lg">Learn more</button>
         </div>
