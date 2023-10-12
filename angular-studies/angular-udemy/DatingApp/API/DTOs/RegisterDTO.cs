@@ -13,5 +13,6 @@ namespace API.DTOs
         
         [Required]
         public string password {get; set;}
+        public string bio { get; set; }
     }
 }

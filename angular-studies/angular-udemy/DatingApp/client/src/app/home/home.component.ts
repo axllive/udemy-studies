@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit{
   registerMode = false;
   users: any;
 
-  constructor( private http: HttpClient, public accountService : AccountService ) {  }
+  constructor( private http: HttpClient, public accountService : AccountService, private toast: ToastrService ) {  }
   
   ngOnInit(): void 
   {
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit{
     this.http.get('https://localhost:5001/api/user').subscribe({
       next: response => this.users = response,
       error: error => { console.log(error) },
-      complete: () => { console.log('Request has completed') }
+      complete: () => { }
     })
   }
 

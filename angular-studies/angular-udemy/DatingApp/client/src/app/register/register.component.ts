@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +15,9 @@ export class RegisterComponent implements OnInit{
   @Output() cancelRegister = new EventEmitter();
   
   model:any = {}
+  usrname: string = "";
   
-  constructor( private accountService: AccountService ) {}
+  constructor( private accountService: AccountService, private router: Router, private toast: ToastrService ) {}
 
   ngOnInit(): void {}
 
@@ -23,10 +26,25 @@ export class RegisterComponent implements OnInit{
     this.accountService.register(this.model).subscribe({
       next: () =>{
         this.cancel();
+        this.login();
       },
       error: err =>{
-        console.log(err);
+        let errorJ = JSON.parse(JSON.stringify(err));
+        
+        if (errorJ.error.errors.password != undefined) this.toast.error(errorJ.error.errors.password);  
+        if (errorJ.error.errors.username != undefined) this.toast.error(errorJ.error.errors.username);  
+        
       }
+    })
+  }
+
+  login(){
+    this.accountService.login(this.model).subscribe({
+      next: () => {   
+        this.usrname = this.accountService.getCurrentUser();
+        this.router.navigateByUrl('/members');
+       },
+       error: error =>  this.toast.error(error.error)
     })
   }
 

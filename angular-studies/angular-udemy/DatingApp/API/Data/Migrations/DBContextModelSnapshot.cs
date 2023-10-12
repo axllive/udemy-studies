@@ -22,6 +22,10 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("BLOB");
 
@@ -33,7 +37,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,9 +10,11 @@ export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
   //objeto< tipo1 | tipo2 > ->>>o objeto pode assumir os dois tipos
   private currentUserSource = new BehaviorSubject<User | null>(null);
+  private currentUserNameSource = new BehaviorSubject<string | null>(null);
   //convenção de Angular/TypeScript o $ ao final da variável, significa que ela
   //é um Observable
   currentUser$ = this.currentUserSource.asObservable();
+  currentUserName$ = this.currentUserNameSource.asObservable();
 
   constructor( private http: HttpClient ) { }
 
@@ -39,6 +41,19 @@ export class AccountService {
         }
       })
     )
+  }
+
+  getCurrentUser(){
+    const usrJson = localStorage.getItem("user");
+    if (usrJson != null) {
+      const usrObj = JSON.parse(usrJson.toString());
+      this.currentUserNameSource.next(usrObj.username);
+      return usrObj.username;
+    }
+    else {
+      return "";
+    }
+
   }
 
   setCurrentUser (usr : User){

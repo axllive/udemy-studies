@@ -32,7 +32,8 @@ namespace API.Controllers
             AppUser usr = new AppUser{
                 UserName = registerDTO.username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                Bio = registerDTO.bio
             };
 
             _context.Users.Add(usr);
