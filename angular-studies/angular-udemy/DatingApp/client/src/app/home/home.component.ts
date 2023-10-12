@@ -20,21 +20,12 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void 
   {
     this.currentUser$ = this.accountService.currentUser$;
-    this.getUsers();
+    this.accountService.getUsers().subscribe( data => this.users = data );
   }
 
   registerToggle()
   {
     this.registerMode =  !this.registerMode;
-  }
-
-  getUsers()
-  {
-    this.http.get('https://localhost:5001/api/user').subscribe({
-      next: response => this.users = response,
-      error: error => { console.log(error) },
-      complete: () => { }
-    })
   }
 
   cancelRegisterMode( event : boolean )

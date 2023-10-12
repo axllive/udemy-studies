@@ -21,7 +21,8 @@ export class NavComponent {
 
   ngOnInit(): void{
     this.currentUser$ = this.accountService.currentUser$;
-    this.usrname = this.accountService.getCurrentUser();
+    let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
+    this.usrname = jsonUsr.username;
   }
   
   login(){

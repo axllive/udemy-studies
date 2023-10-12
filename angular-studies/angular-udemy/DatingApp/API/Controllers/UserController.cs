@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -21,24 +22,20 @@ public class UserController : BaseAPiController
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers(LoginDTO loginData)
+    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers(string jsonUsr)
     {
+        if (jsonUsr == null)
+        {
+            return Unauthorized();
+        }
+
+        LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonUsr);
         AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
 
         if (usr == null) return Unauthorized("User not found.");
 
-        using var hmac = new HMACSHA512(usr.PasswordSalt);
-
-        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginData.password));
-
-        for (int i = 0; i < computedHash.Length; i++)
-        {
-            if (computedHash[i] != usr.PasswordHash[i]) return Unauthorized("Invalid password.");
-        }
-
-
         var users = await _context.Users.ToListAsync();
-
+        
         return users;
     }
 
@@ -47,5 +44,16 @@ public class UserController : BaseAPiController
     {
         return await _context.Users.FindAsync(id);
     }
+
+    public static string GetHash(string input)
+    {
+        int index = input.IndexOf('.');
+        if (index == -1) return "";
+
+        index = input.IndexOf('.', index + 1);
+        if (index == -1) return "";
+
+        return input.Substring(index + 1);
+    }       
 
 }
