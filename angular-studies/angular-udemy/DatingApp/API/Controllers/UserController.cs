@@ -2,6 +2,7 @@
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ public class UserController : BaseAPiController
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers(string jsonUsr)
+    public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetUsers(string jsonUsr)
     {
         if (jsonUsr == null) return Unauthorized();
 
@@ -38,7 +39,7 @@ public class UserController : BaseAPiController
 
             var users = await _context.Users.ToListAsync();
             
-            if (users.Any()) return users;
+            if (users.Any()) return users.Adapt<List<RegisterDTO>>();
             else return NotFound("Database returned no users");
             
         }

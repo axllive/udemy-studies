@@ -1,5 +1,6 @@
 using System.Text;
 using API;
+using API.DTOs;
 using API.Extensions;
 using API.Interfaces;
 using API.Services;
@@ -14,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddAplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.RegisterMaps();
 var app = builder.Build();
 
 //middlewares

@@ -69,3 +69,5 @@ C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debu
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Mapster.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Mapster.Core.dll

@@ -12,7 +12,7 @@ export class AccountService {
   //objeto< tipo1 | tipo2 > ->>>o objeto pode assumir os dois tipos
   private currentUserSource = new BehaviorSubject<User | null>(null);
   private currentUserNameSource = new BehaviorSubject<string | null>(null);
-  private currentUsersSource = new BehaviorSubject< Array<User> | null> (null);
+  private currentUsersSource = new BehaviorSubject< any[] | null> (null);
   //convenção de Angular/TypeScript o $ ao final da variável, significa que ela
   //é um Observable
   currentUser$ = this.currentUserSource.asObservable();
@@ -61,7 +61,17 @@ export class AccountService {
 
   getUsers()
   {
-    return this.http.get<User[]>('https://localhost:5001/api/user?jsonUsr=' +   this.getCurrentUser().toString(),  );
+    return this.http.get<User[]>('https://localhost:5001/api/user?jsonUsr=' +   this.getCurrentUser().toString(),  ).pipe(
+      //para usar como array no component que recebe o objeto
+      //é necessário tipá-lo dentro do Observable
+      map(( (member : User[]) =>{
+        const usr = member;
+        if (usr) {
+          this.currentUsersSource.next(usr);
+        }
+      })
+    )
+    )
   }
 
   setCurrentUser (usr : User){
