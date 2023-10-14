@@ -40,5 +40,29 @@ namespace API.Services
 
             return tokenHandler.WriteToken(token);
         }
+
+        public bool ValidateToken(string token)
+        {
+            // Create token validation parameters
+            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _key,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
+                return true; // Token is valid
+            }
+            catch (SecurityTokenException)
+            {
+                return false; // Token is invalid
+            }
+        }
     }
 }

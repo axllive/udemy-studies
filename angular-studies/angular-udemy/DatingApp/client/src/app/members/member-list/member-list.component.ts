@@ -9,7 +9,9 @@ import { AccountService } from 'src/app/_services/account.service';
 export class MemberListComponent implements OnInit {
   users: any;
 
-  ngOnInit(): void { this.accountService.getUsers().subscribe( data => { this.users = data } )  }
   constructor( private accountService : AccountService ) {  }
+
+  
+  ngOnInit(): void { this.accountService.getUsers().subscribe( data => { this.users = data } )  }
 
 }

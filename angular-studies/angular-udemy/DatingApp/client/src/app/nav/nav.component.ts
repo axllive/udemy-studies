@@ -28,7 +28,8 @@ export class NavComponent {
   login(){
     this.accountService.login(this.model).subscribe({
       next: () => {   
-        this.usrname = this.accountService.getCurrentUser();
+        let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
+        this.usrname = jsonUsr.username;
         this.router.navigateByUrl('/members');
         this.toast.success('Login successful')
        },

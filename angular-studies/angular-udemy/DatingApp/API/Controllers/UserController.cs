@@ -1,8 +1,7 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using API.DTOs;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,29 +13,40 @@ namespace API.Controllers;
 public class UserController : BaseAPiController
 {
     private readonly DBContext _context;
+    public readonly ITokenService _tokenService;
 
-    public UserController(DBContext dBContext)
+    public UserController(DBContext dBContext, ITokenService tokenService)
     {
         _context = dBContext;
+        _tokenService = tokenService;
     }
 
     [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers(string jsonUsr)
     {
-        if (jsonUsr == null)
-        {
-            return Unauthorized();
+        if (jsonUsr == null) return Unauthorized();
+
+        try
+        {  
+            LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonUsr);
+            AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
+
+            if (usr == null) return Unauthorized("User not found.");
+
+            if ( ! _tokenService.ValidateToken(loginData.token) ) return Unauthorized("Token coulndnt be validated");
+
+            var users = await _context.Users.ToListAsync();
+            
+            if (users.Any()) return users;
+            else return NotFound("Database returned no users");
+            
         }
-
-        LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonUsr);
-        AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
-
-        if (usr == null) return Unauthorized("User not found.");
-
-        var users = await _context.Users.ToListAsync();
-        
-        return users;
+        catch (System.Exception e)
+        {
+            
+            return Unauthorized(e.ToString());
+        }
     }
 
     [HttpGet("{id}")]
