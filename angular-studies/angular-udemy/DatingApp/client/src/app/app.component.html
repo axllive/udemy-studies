@@ -1,6 +1,14 @@
-<app-nav></app-nav>
-<div class="container" style="margin-top: 100px;" >
-    <!--*ngFor = "(tipo de variavel) item of nomeVariavelAngular" ##laço foreach em angular -->
-    <!--o laço também cria um novo nó html onde é instanciado -->
-    <router-outlet></router-outlet>
+<header>
+    <app-nav></app-nav>
+</header>
+
+<div class="container page-container">
+    <div class="content-wrap">
+        <router-outlet></router-outlet>
+    </div>
+    <footer class="foot">
+        <app-footer></app-footer>
+    </footer>
 </div>
+
+

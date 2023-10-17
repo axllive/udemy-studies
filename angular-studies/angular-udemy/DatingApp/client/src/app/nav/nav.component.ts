@@ -32,10 +32,6 @@ export class NavComponent {
         this.usrname = jsonUsr.username;
         this.router.navigateByUrl('/members');
         this.toast.success('Login successful')
-       },
-       error: error => {
-        this.toast.error(error.error);
-        console.log(error)
        }
     })
   }

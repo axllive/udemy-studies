@@ -20,7 +20,9 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void 
   {
     this.currentUser$ = this.accountService.currentUser$;
-    this.accountService.getUsers().subscribe( data => this.users = data );
+    if (this.accountService.getCurrentUser() != "" ){
+      this.accountService.getUsers().subscribe( data => this.users = data );
+    }
   }
 
   registerToggle()
