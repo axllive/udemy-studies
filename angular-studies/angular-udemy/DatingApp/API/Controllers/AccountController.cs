@@ -48,7 +48,9 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginData)
         {
-            AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
+            AppUser usr = await _context.Users
+            .Include(d => d.Photos)
+            .SingleOrDefaultAsync(d => d.UserName == loginData.username);
 
             if (usr == null) return Unauthorized("User not found.");
 
@@ -64,7 +66,8 @@ namespace API.Controllers
             return new UserDTO
             {
                 username = usr.UserName,
-                token = _tokenService.CreateToken(usr)
+                token = _tokenService.CreateToken(usr),
+                currentphotourl = usr.Photos.FirstOrDefault(d => d.IsMain).Url
             };
         }
 

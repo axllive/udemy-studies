@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent {
   model: any = {}
+  usr: any = {}
   loggedIn = false;
   usrname : string = this.accountService.getCurrentUser();
   //whe angular is in strict mode, is mandatory initalize the proprieties
@@ -23,6 +24,7 @@ export class NavComponent {
     this.currentUser$ = this.accountService.currentUser$;
     let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
     this.usrname = jsonUsr.username;
+    this.usr = jsonUsr;
   }
   
   login(){
@@ -30,6 +32,7 @@ export class NavComponent {
       next: () => {   
         let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
         this.usrname = jsonUsr.username;
+        this.usr = jsonUsr;
         this.router.navigateByUrl('/members');
         this.toast.success('Login successful')
        }
