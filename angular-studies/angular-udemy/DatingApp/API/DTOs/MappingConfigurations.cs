@@ -18,10 +18,17 @@ namespace API.DTOs
 
             TypeAdapterConfig<AppUser, RegisterDTO>
             .NewConfig()
-            .Map(destino => destino.username , origem => origem.UserName)
-            .Map(destino => destino.bio , origem => origem.Bio)
-            .Map(destino => destino.gender , origem => origem.Gender)
-            .Map(destino => destino.photos , origem => origem.Photos.Adapt<List<PhotoDTO>>());
+            .Map(destino => destino.username ,      origem => origem.UserName)
+            .Map(destino => destino.bio ,           origem => origem.Bio)
+            .Map(destino => destino.gender ,        origem => origem.Gender)
+            .Map(destino => destino.age ,           origem => origem.GetAge())
+            .Map(destino => destino.kwonas ,        origem => origem.KnownAs)
+            .Map(destino => destino.created ,       origem => origem.Created.ToShortDateString())
+            .Map(destino => destino.lastactive ,    origem => origem.LastActive.ToString())
+            .Map(destino => destino.intrests ,     origem => origem.Intrests)
+            .Map(destino => destino.city ,          origem => origem.City)
+            .Map(destino => destino.country ,       origem => origem.Country)
+            .Map(destino => destino.photos ,        origem => origem.Photos.Adapt<List<PhotoDTO>>());
 
             TypeAdapterConfig<Photo, PhotoDTO>
             .NewConfig()

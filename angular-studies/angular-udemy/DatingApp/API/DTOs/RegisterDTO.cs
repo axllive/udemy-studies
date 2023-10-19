@@ -17,6 +17,13 @@ namespace API.DTOs
         public string password {get; set;}
         public string gender { get; set; }
         public string bio { get; set; }
+        public int age { get; set; }
+        public string kwonas { get; set; }
+        public string created { get; set; }
+        public string lastactive { get; set; }
+        public string intrests { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
 
         public List<PhotoDTO> photos {get; set;} = new();
     }

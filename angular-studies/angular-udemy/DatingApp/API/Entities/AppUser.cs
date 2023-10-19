@@ -8,7 +8,7 @@ public class AppUser
     public int Id { get; set; }
     public string UserName {get; set;}
     [StringLength(100)]
-    public string Bio {get ; set;}
+    public string Bio {get ; set;} //IE introduction
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
     public DateOnly DateOfBirth { get; set; }
