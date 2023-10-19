@@ -71,3 +71,4 @@ C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debu
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Mapster.dll
 C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Mapster.Core.dll
+C:\Users\axll\udemy-studies\angular-studies\angular-udemy\DatingApp\API\bin\Debug\net7.0\Data\UserSeedData.json

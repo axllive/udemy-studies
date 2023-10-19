@@ -13,12 +13,12 @@ namespace API.Controllers;
 [Route("api/[controller]")] // /api/users
 public class UserController : BaseAPiController
 {
-    private readonly DBContext _context;
     public readonly ITokenService _tokenService;
+    public readonly IUserRepository _userRepository;
 
-    public UserController(DBContext dBContext, ITokenService tokenService)
+    public UserController(IUserRepository userRepository, ITokenService tokenService)
     {
-        _context = dBContext;
+        _userRepository = userRepository;
         _tokenService = tokenService;
     }
 
@@ -31,13 +31,13 @@ public class UserController : BaseAPiController
         try
         {  
             LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonUsr);
-            AppUser usr = await _context.Users.SingleOrDefaultAsync(d => d.UserName == loginData.username);
+            AppUser usr = await _userRepository.GetUserByUsernameAsync(loginData.username);
 
             if (usr == null) return Unauthorized("User not found.");
 
             if ( ! _tokenService.ValidateToken(loginData.token) ) return Unauthorized("Token coulndnt be validated");
 
-            var users = await _context.Users.ToListAsync();
+            var users = await _userRepository.GetUsersAsync();
             
             if (users.Any()) return users.Adapt<List<RegisterDTO>>();
             else return NotFound("Database returned no users");
@@ -53,7 +53,13 @@ public class UserController : BaseAPiController
     [HttpGet("{id}")]
     public async Task<ActionResult<AppUser>> GetUser(int id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _userRepository.GetUserByIdAsync(id);
+    }
+
+    [HttpGet("{name}")]
+    public async Task<ActionResult<AppUser>> GetUserByName(string name)
+    {
+        return await _userRepository.GetUserByUsernameAsync(name);
     }
 
     public static string GetHash(string input)

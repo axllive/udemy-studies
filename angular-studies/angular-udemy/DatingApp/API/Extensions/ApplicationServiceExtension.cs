@@ -1,3 +1,4 @@
+using API.Data.Repositories;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace API.Extensions
 
                 //adição de serviços
                 services.AddScoped<ITokenService, TokenService>();
+                services.AddScoped<IUserRepository, UserRepository>();
                 return services;
             }
     }

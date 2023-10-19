@@ -4,7 +4,34 @@
     <div *ngIf="accountService.currentUsers$ | async else noUser" class="row">
 
       <div *ngFor="let usr of accountService.currentUsers$ | async" class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <defs>
+            <clipPath id="circleView">
+                <circle cx="140" cy="840" r="890" fill="#FFFFFF" />
+            </clipPath>
+        </defs>
+
+        <!-- <ng-container *ngIf="usr.gender =='female'" >          
+          <image 
+          width="140" 
+          height="140" 
+          xlink:href="https://cdn-icons-png.flaticon.com/512/219/219969.png" 
+          clip-path="url(#circleView)"/>
+        </ng-container>
+        <ng-container *ngIf="usr.gender =='male'">
+          <image 
+          width="140" 
+          height="140" 
+          xlink:href="https://cdn-icons-png.flaticon.com/512/219/219983.png" 
+          clip-path="url(#circleView)"/>
+        </ng-container> -->
+
+        <image 
+          width="140" 
+          height="140" 
+          [attr.xlink:href]="usr.photos?.[0]?.url" 
+          clip-path="url(#circleView)"/>
+        </svg>
         <h2>{{usr.username}}</h2>
         <p>{{usr.bio}}</p>
         <p><a class="btn btn-secondary" href="#">Visualizar detalhes »</a></p>
