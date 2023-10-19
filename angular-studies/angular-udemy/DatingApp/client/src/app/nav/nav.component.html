@@ -20,7 +20,20 @@
         </ul>
 
         <div class="dropdown"  *ngIf="accountService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcum  <b>{{usrname}}</b>💦</a>  
+            <svg class="bd-placeholder-img rounded-circle " width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <defs>
+                  <clipPath id="avatar">
+                    <circle cx="25" cy="25" r="25" fill="#FFFFFF" /> <!-- Modified the cx, cy, and r values -->
+                  </clipPath>
+                </defs>
+                <image 
+                  width="40" 
+                  height="40" 
+                  xlink:href="https://cdn-icons-png.flaticon.com/512/219/219969.png" 
+                  clip-path="url(#avatar)"
+                />
+              </svg>
+            <a class="dropdown-toggle text-light text-decoration-none px-1" dropdownToggle>Welcum  <b>{{usrname}}</b>💦</a>  
             <div class="dropdown-menu" *bsDropdownMenu="">
                 <a class="dropdown-item">Edit Profile</a>
                 <a class="dropdown-item" (click)="logout()" >Logout</a>
