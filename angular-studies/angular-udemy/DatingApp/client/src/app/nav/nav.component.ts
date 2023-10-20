@@ -14,6 +14,7 @@ export class NavComponent {
   model: any = {}
   usr: any = {}
   statusOnline = false;
+  dropdownIsOpen = false;
   usrname : string = this.accountService.getCurrentUser();
   //whe angular is in strict mode, is mandatory initalize the proprieties
   currentUser$: Observable< User | null> = of(null);
@@ -48,5 +49,8 @@ export class NavComponent {
     this.router.navigateByUrl("/");
   }
 
-  statusChange(){ this.statusOnline = !this.statusOnline; }
+  statusChangeOffline(e: Event){ this.statusOnline = false;  e.stopPropagation(); }
+  
+  statusChangeOnline(e: Event){ this.statusOnline = true;  e.stopPropagation(); }
+  
 }
