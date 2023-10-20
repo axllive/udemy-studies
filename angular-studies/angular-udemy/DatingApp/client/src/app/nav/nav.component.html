@@ -18,8 +18,7 @@
                 <a class="nav-link " href="#" tabindex="-1" routerLinkActive="active" (click)="logout()" >Logout</a>
             </li>
         </ul>
-
-        <div class="dropdown"  *ngIf="accountService.currentUser$ | async" dropdown>
+        <ng-container  *ngIf="accountService.currentUser$ | async" >
             <svg class="bd-placeholder-img rounded-circle " width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <defs>
                   <clipPath id="avatar">
@@ -27,16 +26,42 @@
                   </clipPath>
                 </defs>
                 <image 
-                    style="border: white;"
+                  style="border: black;"
                   width="40" 
                   height="40" 
                   [attr.xlink:href]="usr.currentphotourl" 
                   clip-path="url(#avatar)"
                 />
+                <circle *ngIf="statusOnline"
+                    cx='20'
+                    cy='20'
+                    r='20'
+                    fill='none'
+                    stroke='rgba(95, 255, 151, 0.80)'
+                    stroke-width="4" >
+                </circle>
+                <circle *ngIf="!statusOnline"
+                    cx='20'
+                    cy='20'
+                    r='20'
+                    fill='none'
+                    stroke='rgba(37, 37, 38, 0.80)'
+                    stroke-width="4" >
+                </circle>
               </svg>
+        </ng-container>
+        <div class="dropdown p-1"  *ngIf="accountService.currentUser$ | async" dropdown>
             <a class="dropdown-toggle text-light text-decoration-none px-1" dropdownToggle>Welcum  <b>{{usrname}}</b>💦</a>  
-            <div class="dropdown-menu" *bsDropdownMenu="">
-                <a class="dropdown-item">Edit Profile</a>
+            <div class="dropdown-menu status-menu" *bsDropdownMenu="">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"  >
+                        <a [class.active]="statusOnline" class="nav-link btn-status" data-bs-toggle="tab" aria-selected="true" role="tab" tabindex="-1" (click)="statusChange()" >Online</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a [class.active]="!statusOnline" class="nav-link btn-status" data-bs-toggle="tab"  aria-selected="false" role="tab" (click)="statusChange()">Offline</a>
+                    </li>                
+                </ul>
+                <a class="dropdown-item" >Edit Profile</a>
                 <a class="dropdown-item" (click)="logout()" >Logout</a>
             </div>
         </div>

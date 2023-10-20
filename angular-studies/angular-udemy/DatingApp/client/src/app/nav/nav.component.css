@@ -1,1 +1,3 @@
-.dropdown-toggle, .dropdown-item{ cursor:pointer }
+.dropdown-toggle, .dropdown-item, .nav-link{ cursor:pointer }
+.btn-status{ padding: 4px 8px !important;}
+.status-menu{padding-left: 32px; padding-right: 32px;}

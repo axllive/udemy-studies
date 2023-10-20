@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class NavComponent {
   model: any = {}
   usr: any = {}
-  loggedIn = false;
+  statusOnline = false;
   usrname : string = this.accountService.getCurrentUser();
   //whe angular is in strict mode, is mandatory initalize the proprieties
   currentUser$: Observable< User | null> = of(null);
@@ -25,6 +25,7 @@ export class NavComponent {
     let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
     this.usrname = jsonUsr.username;
     this.usr = jsonUsr;
+    if(jsonUsr) this.statusOnline = true;
   }
   
   login(){
@@ -33,6 +34,7 @@ export class NavComponent {
         let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
         this.usrname = jsonUsr.username;
         this.usr = jsonUsr;
+        this.statusOnline = true;
         this.router.navigateByUrl('/members');
         this.toast.success('Login successful')
        }
@@ -45,4 +47,6 @@ export class NavComponent {
     this.usrname = "";
     this.router.navigateByUrl("/");
   }
+
+  statusChange(){ this.statusOnline = !this.statusOnline; }
 }
