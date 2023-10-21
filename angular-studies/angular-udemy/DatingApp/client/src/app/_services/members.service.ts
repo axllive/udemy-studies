@@ -31,7 +31,7 @@ export class MembersService {
     )
   }
 
-  getMember(id: number){
+  getMemberById(id: number){
     return this.http.get<Member>(this.baseUrl + 'users/user/'+ id +'/'+ this.usrTokenObject?.toString()).pipe(
       //para usar como array no component que recebe o objeto
       //é necessário tipá-lo dentro do Observable
@@ -41,6 +41,7 @@ export class MembersService {
           this.currentUserSource.next(usr);
         }
       })
+    )
     )
   }
 

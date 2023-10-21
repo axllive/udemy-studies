@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { MembersService } from 'src/app/_services/members.service';
 })
 export class MemberListComponent implements OnInit {
 
-  constructor( public accountService : AccountService, public membersService: MembersService ) {  }
+  constructor( public membersService: MembersService ) {  }
 
   
   ngOnInit(): void { this.membersService.getMembers().subscribe();  }

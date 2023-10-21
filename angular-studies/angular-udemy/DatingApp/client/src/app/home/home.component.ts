@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
@@ -15,7 +14,7 @@ export class HomeComponent implements OnInit{
   registerMode = false;
   users: any;
 
-  constructor( private http: HttpClient, public accountService : AccountService, private toast: ToastrService ) {  }
+  constructor( public accountService : AccountService, private toast: ToastrService ) {  }
   
   ngOnInit(): void 
   {

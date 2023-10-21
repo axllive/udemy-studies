@@ -2,41 +2,9 @@
 
     <!-- Three columns of text below the carousel -->
     <div *ngIf="membersService.currentUsers$ | async else noUser" class="row">
-
-      <div *ngFor="let usr of membersService.currentUsers$ | async" class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <defs>
-            <clipPath id="circleView">
-                <circle cx="140" cy="840" r="890" fill="#FFFFFF" />
-            </clipPath>
-        </defs>
-
-        <!-- <ng-container *ngIf="usr.gender =='female'" >          
-          <image 
-          width="140" 
-          height="140" 
-          xlink:href="https://cdn-icons-png.flaticon.com/512/219/219969.png" 
-          clip-path="url(#circleView)"/>
-        </ng-container>
-        <ng-container *ngIf="usr.gender =='male'">
-          <image 
-          width="140" 
-          height="140" 
-          xlink:href="https://cdn-icons-png.flaticon.com/512/219/219983.png" 
-          clip-path="url(#circleView)"/>
-        </ng-container> -->
-
-        <image 
-          width="140" 
-          height="140" 
-          [attr.xlink:href]="usr.photos?.[0]?.url" 
-          clip-path="url(#circleView)"/>
-        </svg>
-        <h2>{{usr.username}}</h2>
-        <p>{{usr.bio}}</p>
-        <p><a class="btn btn-secondary" href="#">Visualizar detalhes »</a></p>
+      <div *ngFor="let usr of membersService.currentUsers$ | async" class="col-lg-3">
+        <app-member-card [member]="usr"></app-member-card>
       </div>
-    
     </div>
 
     <ng-template #noUser>
@@ -51,9 +19,7 @@
         </div>
       </div>
     </ng-template>
-
-
-
+    
     <hr class="featurette-divider">
 
     <div class="row featurette">

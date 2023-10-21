@@ -51,19 +51,20 @@ public class UsersController : BaseAPiController
     }
 
     [AllowAnonymous]
-    [HttpGet("user/{id}/{jsonUsr}")]
-    public async Task<ActionResult<AppUser>> GetUser(int id, string jsonUsr)
+    [HttpGet("user/{id}/")]
+    public async Task<ActionResult<RegisterDTO>> GetUser(int id)
     {
-        if (await TokenValidator(jsonUsr)) return await _userRepository.GetUserByIdAsync(id);
-        else return Unauthorized("Not authenticated.");
+       AppUser usr = await _userRepository.GetUserByIdAsync(id);
+       return usr.Adapt<RegisterDTO>();
     }
 
     [AllowAnonymous]
-    [HttpGet("user/byname/{name}/{jsonUsr}")]
-    public async Task<ActionResult<AppUser>> GetUserByName(string name, string jsonUsr)
+    [HttpGet("user/byname/{name}/")]
+    public async Task<ActionResult<RegisterDTO>> GetUserByName(string name)
     {
-        if (await TokenValidator(jsonUsr)) return await _userRepository.GetUserByUsernameAsync(name);
-        else return Unauthorized("Not authenticated.");
+        AppUser usr = await _userRepository.GetUserByUsernameAsync(name);
+        return usr.Adapt<RegisterDTO>();
+
     }
 
     public static string GetHash(string input)
@@ -76,23 +77,4 @@ public class UsersController : BaseAPiController
 
         return input.Substring(index + 1);
     }       
-
-    private async Task<bool> TokenValidator(string jsonObject){
-        
-        try
-        {  
-            LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonObject);
-            AppUser usr = await _userRepository.GetUserByUsernameAsync(loginData.username);
-
-            if (usr == null) return false;
-
-            return _tokenService.ValidateToken(loginData.token);
-        }
-        catch (System.Exception e)
-        {
-            
-            return false;
-        }
-    }
-
 }

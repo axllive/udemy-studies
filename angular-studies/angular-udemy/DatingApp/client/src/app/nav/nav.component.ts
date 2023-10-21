@@ -23,10 +23,13 @@ export class NavComponent {
 
   ngOnInit(): void{
     this.currentUser$ = this.accountService.currentUser$;
-    let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
-    this.usrname = jsonUsr.username;
-    this.usr = jsonUsr;
-    if(jsonUsr) this.statusOnline = true;
+    if (this.accountService.getCurrentUser() != "") {
+      let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
+      console.log(jsonUsr);
+      this.usrname = jsonUsr.username;
+      this.usr = jsonUsr;
+      if(jsonUsr) this.statusOnline = true;
+    }
   }
   
   login(){

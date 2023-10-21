@@ -19,6 +19,7 @@ import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 /* Adicionando comentários ao Angular */
 /* @NgModule
   decorator** resposável pela raiz do cliente, como se fosse a program
@@ -40,7 +41,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     FooterComponent,
     TestErrorComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,
