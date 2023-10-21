@@ -11,13 +11,13 @@
             style="font-size:1.125rem;text-anchor:middle">
             <defs>
               <clipPath id="rectView">
-                <rect width="100%" height="100%" fill="#868e96" rx="40" ry="40"></rect>
+                <path d="M90,10 h120 a30,30 0 0 1 30,30 v108 a30,30 0 0 1 -30,30 h-120 a30,30 0 0 1 -30,-30 v-108 a30,30 0 0 1 30,-30 z" />
               </clipPath>
             </defs>
             <image 
             width="100%" 
             height="200" 
-            [attr.xlink:href]="member.photos?.[0]?.url" 
+            [attr.xlink:href]="member.photos[0].url" 
             clip-path="url(#rectView)"/>
             </svg>
             <div class="card-body text-center">
