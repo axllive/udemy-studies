@@ -61,7 +61,7 @@ export class AccountService {
 
   getUsers()
   {
-    return this.http.get<User[]>('https://localhost:5001/api/user?jsonUsr=' +   this.getCurrentUser().toString(),  ).pipe(
+    return this.http.get<User[]>('https://localhost:5001/api/users?jsonUsr=' +   this.getCurrentUser().toString(),  ).pipe(
       //para usar como array no component que recebe o objeto
       //é necessário tipá-lo dentro do Observable
       map(( (member : User[]) =>{

@@ -11,12 +11,12 @@ namespace API.Controllers;
 
 [Authorize]
 [Route("api/[controller]")] // /api/users
-public class UserController : BaseAPiController
+public class UsersController : BaseAPiController
 {
     public readonly ITokenService _tokenService;
     public readonly IUserRepository _userRepository;
 
-    public UserController(IUserRepository userRepository, ITokenService tokenService)
+    public UsersController(IUserRepository userRepository, ITokenService tokenService)
     {
         _userRepository = userRepository;
         _tokenService = tokenService;
@@ -50,16 +50,20 @@ public class UserController : BaseAPiController
         }
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<AppUser>> GetUser(int id)
+    [AllowAnonymous]
+    [HttpGet("user/{id}/{jsonUsr}")]
+    public async Task<ActionResult<AppUser>> GetUser(int id, string jsonUsr)
     {
-        return await _userRepository.GetUserByIdAsync(id);
+        if (await TokenValidator(jsonUsr)) return await _userRepository.GetUserByIdAsync(id);
+        else return Unauthorized("Not authenticated.");
     }
 
-    [HttpGet("{name}")]
-    public async Task<ActionResult<AppUser>> GetUserByName(string name)
+    [AllowAnonymous]
+    [HttpGet("user/byname/{name}/{jsonUsr}")]
+    public async Task<ActionResult<AppUser>> GetUserByName(string name, string jsonUsr)
     {
-        return await _userRepository.GetUserByUsernameAsync(name);
+        if (await TokenValidator(jsonUsr)) return await _userRepository.GetUserByUsernameAsync(name);
+        else return Unauthorized("Not authenticated.");
     }
 
     public static string GetHash(string input)
@@ -72,5 +76,23 @@ public class UserController : BaseAPiController
 
         return input.Substring(index + 1);
     }       
+
+    private async Task<bool> TokenValidator(string jsonObject){
+        
+        try
+        {  
+            LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonObject);
+            AppUser usr = await _userRepository.GetUserByUsernameAsync(loginData.username);
+
+            if (usr == null) return false;
+
+            return _tokenService.ValidateToken(loginData.token);
+        }
+        catch (System.Exception e)
+        {
+            
+            return false;
+        }
+    }
 
 }
