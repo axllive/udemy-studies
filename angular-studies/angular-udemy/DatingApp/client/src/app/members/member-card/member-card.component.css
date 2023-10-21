@@ -4,6 +4,7 @@
 
 .card:hover image{
     transform: scale(1.2, 1.2);
+    transform-origin: center;
     transition-duration: 500ms;
     transition-timing-function:  ease-out;
     opacity: 0.7;
@@ -11,6 +12,7 @@
 
 .card image{
     transform: scale(1.0, 1.0);
+    transform-origin: center;
     transition-duration: 500ms;
     transition-timing-function: ease-out;
 }

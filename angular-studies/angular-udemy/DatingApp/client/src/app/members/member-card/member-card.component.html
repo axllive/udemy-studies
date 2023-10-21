@@ -1,42 +1,64 @@
-<div class="card mb-4" *ngIf="member" >
+<div *ngIf="member" >
     <ng-container *ngIf="(member.photos.length > 0) else NoPhoto">
-        <div class="text-center">
-            <svg class="bd-placeholder-img rounded-circle p-1" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <defs>
-                <clipPath id="circleView">
-                    <circle cx="140" cy="840" r="890" fill="#FFFFFF" />
-                </clipPath>
+        <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa fa-user"></i> {{member.kwonas}}</h5>
+              <h6 class="card-subtitle text-muted"><i class="fa fa-home"></i> {{member.city}}</h6>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            class="d-block user-select-none" width="100%" height="140"
+            focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" 
+            style="font-size:1.125rem;text-anchor:middle">
+            <defs>
+              <clipPath id="rectView">
+                <rect width="100%" height="100%" fill="#868e96" rx="40" ry="40"></rect>
+              </clipPath>
             </defs>
             <image 
-                width="140" 
-                height="140" 
-                [attr.xlink:href]="member.photos[0].url" 
-                clip-path="url(#circleView)"/>
+            width="100%" 
+            height="200" 
+            [attr.xlink:href]="member.photos?.[0]?.url" 
+            clip-path="url(#rectView)"/>
             </svg>
-        </div>
+            <div class="card-body text-center">
+              <a href="#" class="card-link">Chat</a>
+              <a href="#" class="card-link">block</a>
+            </div>
+            <div class="card-footer text-muted">
+              Last logged: {{member.lastactive}}
+            </div>
+          </div>
     </ng-container>
     <ng-template #NoPhoto>
-        <div class="text-center">
-            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <defs>
-                <clipPath id="circleView">
-                    <circle cx="140" cy="840" r="890" fill="#FFFFFF" />
-                </clipPath>
+        <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa fa-user"></i> {{member.kwonas}}</h5>
+              <h6 class="card-subtitle text-muted"><i class="fa fa-home"></i> {{member.city}}</h6>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            class="d-block user-select-none" width="100%" height="200"
+            focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" 
+            style="font-size:1.125rem;text-anchor:middle">
+            <defs>
+              <clipPath id="rectView">
+                <rect width="100%" height="100%" fill="#868e96"></rect>
+              </clipPath>
             </defs>
             <image 
-                width="140" 
-                height="140" 
-                xlink:href="https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png" 
-                clip-path="url(#circleView)"/>
+            width="100%" 
+            height="200" 
+            xlink:href="https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png"  
+            clip-path="url(#rectView)"/>
             </svg>
-        </div>
+            <div class="card-body">
+              <a href="#" class="card-link">Chat</a>
+              <a href="#" class="card-link">block</a>
+            </div>
+            <div class="card-footer text-muted">
+              Last logged: {{member.lastactive}}
+            </div>
+          </div>
     </ng-template>
-    <div class="card-body p-1">
-        <h6 class="card-title text-center mb-1">
-            <i class="fa fa-user"></i> {{member.kwonas}}</h6>
-        <p class="card-text text-muted text-center"><i class="fa fa-home"></i> {{member.city}}</p>
-    </div>
-    <p class="text-center" ><a class="btn btn-secondary" href="#">Visualizar detalhes »</a></p>
 </div>
 
 

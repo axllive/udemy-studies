@@ -24,7 +24,7 @@ namespace API.DTOs
             .Map(destino => destino.age ,           origem => origem.GetAge())
             .Map(destino => destino.kwonas ,        origem => origem.KnownAs)
             .Map(destino => destino.created ,       origem => origem.Created.ToShortDateString())
-            .Map(destino => destino.lastactive ,    origem => origem.LastActive.ToString())
+            .Map(destino => destino.lastactive ,    origem => origem.LastActive.ToShortDateString())
             .Map(destino => destino.intrests ,     origem => origem.Intrests)
             .Map(destino => destino.city ,          origem => origem.City)
             .Map(destino => destino.country ,       origem => origem.Country)

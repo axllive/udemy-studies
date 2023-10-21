@@ -2,7 +2,7 @@
 
     <!-- Three columns of text below the carousel -->
     <div *ngIf="membersService.currentUsers$ | async else noUser" class="row">
-      <div *ngFor="let usr of membersService.currentUsers$ | async" class="col-lg-3">
+      <div *ngFor="let usr of membersService.currentUsers$ | async" class="member-wrapper col-lg-3">
         <app-member-card [member]="usr"></app-member-card>
       </div>
     </div>
