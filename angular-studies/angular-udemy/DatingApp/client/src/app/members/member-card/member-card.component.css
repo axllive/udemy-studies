@@ -1,7 +1,9 @@
 .card:hover{
     background-color: rgba(215, 215, 215, 0.3);
 }
-
+.card-body{
+    padding-bottom: 0.5rem;
+}
 .card:hover image{
     transform: scale(1.2, 1.2);
     transform-origin: center;
@@ -62,5 +64,8 @@ ul{
 @media only screen and (min-width: 1400px) {
     .pill-wrapper {
         width: 16.66667%;
+    }
+    svg {
+        height: 170px;
     }
 }

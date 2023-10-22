@@ -22,32 +22,14 @@ public class UsersController : BaseAPiController
         _tokenService = tokenService;
     }
 
-    [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetUsers(string jsonUsr)
+    public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetUsers()
     {
-        if (jsonUsr == null) return Unauthorized();
-
-        try
-        {  
-            LoginDTO loginData = JsonSerializer.Deserialize<LoginDTO>(jsonUsr);
-            AppUser usr = await _userRepository.GetUserByUsernameAsync(loginData.username);
-
-            if (usr == null) return Unauthorized("User not found.");
-
-            if ( ! _tokenService.ValidateToken(loginData.token) ) return Unauthorized("Token coulndnt be validated");
-
-            var users = await _userRepository.GetUsersAsync();
+        var users = await _userRepository.GetUsersAsync();
+        
+        if (users.Any()) return users.Adapt<List<RegisterDTO>>();
+        else return NotFound("Database returned no users");
             
-            if (users.Any()) return users.Adapt<List<RegisterDTO>>();
-            else return NotFound("Database returned no users");
-            
-        }
-        catch (System.Exception e)
-        {
-            
-            return Unauthorized(e.ToString());
-        }
     }
 
     [AllowAnonymous]

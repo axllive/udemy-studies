@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
@@ -32,7 +32,7 @@ export class MembersService {
   }
 
   getMemberById(id: number){
-    return this.http.get<Member>(this.baseUrl + 'users/user/'+ id +'/'+ this.usrTokenObject?.toString()).pipe(
+    return this.http.get<Member>(this.baseUrl + 'users/user/'+ id ).pipe(
       //para usar como array no component que recebe o objeto
       //é necessário tipá-lo dentro do Observable
       map(( (member : Member) =>{
@@ -44,5 +44,19 @@ export class MembersService {
     )
     )
   }
+  getMemberByName(name: string){
+    return this.http.get<Member>(this.baseUrl + 'users/user/byname/'+ name ).pipe(
+      //para usar como array no component que recebe o objeto
+      //é necessário tipá-lo dentro do Observable
+      map(( (member : Member) =>{
+        const usr = member;
+        if (usr) {
+          this.currentUserSource.next(usr);
+        }
+      })
+    )
+    )
+  }
+
 
 }
