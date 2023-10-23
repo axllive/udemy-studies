@@ -1,0 +1,11 @@
+
+@media only screen and (max-width: 1011px) {
+    .member-wrapper{
+        width: 25%;
+    }
+}
+@media only screen and (min-width: 1400px) {
+    .member-wrapper{
+        width: 16.66667%;
+    }
+}

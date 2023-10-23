@@ -1,0 +1,73 @@
+<div *ngIf="member" class="row">
+    <div class="card col-4" >
+        <img src="{{member.photos?.[0]?.url || './assets/user.png'}}" class="img-main">
+        <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
+        <div class="card-body">
+          <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
+          <h6 class="card-subtitle text-muted">Last active: {{member.lastactive}}</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item row">
+            <button class="btn btn-primary col-6">Like</button>
+            <button class="btn btn-info col-6">Messages</button>
+        </li>
+        </ul>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+    </div>
+    <div class="col-8 px-2" >
+        <tabset>
+            <tab class="nav nav-tabs" role="tablist" heading="Looking for">
+              <div class="col-md-7 p-1">
+                <h2 class="featurette-heading">Looking for heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">{{member.lookingfor}}</p>
+              </div>
+            </tab>
+            <tab class="nav nav-tabs" role="tablist" heading="Profile">
+              <div class="col-md-7 p-1">
+                <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">{{member.bio}}</p>
+              </div>
+            </tab>
+            <tab class="nav nav-tabs" role="tablist" heading="Interests">
+              <div class="col-md-7 p-1">
+                <h2 class="featurette-heading">Interests heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">{{member.intrests}}</p>
+              </div>
+            </tab>
+            <tab class="nav nav-tabs" role="tablist" heading="Photos" #photoTab="tab">
+              <div class="col-md-11 p-1">
+                <h2 class="featurette-heading">Photos heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <div>
+                  <gallery *ngIf="photoTab.active" [items]="images" ></gallery>
+                </div>                
+              </div>
+            </tab>
+            <tab class="nav nav-tabs" role="tablist" heading="More">
+              <div class="col-md-7 p-1">
+                <h2 class="featurette-heading">More heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+              </div>
+            </tab> 
+            <tab class="nav nav-tabs" role="tablist" heading="Even more">
+              <div class="col-md-7 p-1">
+                <h2 class="featurette-heading">Even more heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+              </div>
+            </tab> 
+              <!-- <tab class="nav nav-tabs" >
+                <ng-template tabHeading>                         
+                  <div class="dropdown p-0" dropdown>                  
+                    <a class="dropdown-toggle p-0"  dropdownToggle >Dropit</a>    
+                    <div class="dropdown-menu status-menu" *bsDropdownMenu="" >
+                      <a class="dropdown-item" >Edit Profile</a>
+                      <a class="dropdown-item"  >Logout</a>
+                    </div>                
+                  </div>                    
+                </ng-template>
+              </tab> -->
+        </tabset>
+    </div>
+</div>
+<br>
