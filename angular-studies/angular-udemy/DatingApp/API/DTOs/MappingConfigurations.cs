@@ -26,6 +26,7 @@ namespace API.DTOs
             .Map(destino => destino.created ,       origem => origem.Created.ToShortDateString())
             .Map(destino => destino.lastactive ,    origem => origem.LastActive.ToShortDateString())
             .Map(destino => destino.intrests ,     origem => origem.Intrests)
+            .Map(destino => destino.lookingfor ,     origem => origem.LookingFor)
             .Map(destino => destino.city ,          origem => origem.City)
             .Map(destino => destino.country ,       origem => origem.Country)
             .Map(destino => destino.photos ,        origem => origem.Photos.Adapt<List<PhotoDTO>>());

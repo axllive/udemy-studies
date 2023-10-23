@@ -21,6 +21,7 @@ namespace API.DTOs
         public string kwonas { get; set; }
         public string created { get; set; }
         public string lastactive { get; set; }
+        public string lookingfor { get; set; }
         public string intrests { get; set; }
         public string city { get; set; }
         public string country { get; set; }

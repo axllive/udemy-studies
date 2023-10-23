@@ -8,9 +8,9 @@ import { MembersService } from 'src/app/_services/members.service';
 })
 export class MemberListComponent implements OnInit {
 
-  constructor( public membersService: MembersService ) {  }
+  constructor( public membersService: MembersService ) { this.membersService.getMembers().subscribe();  }
 
   
-  ngOnInit(): void { this.membersService.getMembers().subscribe();  }
+  ngOnInit(): void {  }
 
 }

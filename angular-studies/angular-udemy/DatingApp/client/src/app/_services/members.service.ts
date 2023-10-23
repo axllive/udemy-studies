@@ -52,7 +52,9 @@ export class MembersService {
         const usr = member;
         if (usr) {
           this.currentUserSource.next(usr);
+          return usr;
         }
+        else return;
       })
     )
     )

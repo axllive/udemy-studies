@@ -21,6 +21,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 /* Adicionando comentários ao Angular */
 /* @NgModule
   decorator** resposável pela raiz do cliente, como se fosse a program
@@ -36,7 +37,6 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     HomeComponent,
     RegisterComponent,
     MemberListComponent,
-    MemberDetailComponent,
     ListsComponent,
     MessagesComponent,
     FooterComponent,
@@ -51,7 +51,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    TabsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
