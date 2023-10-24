@@ -1,0 +1,53 @@
+{
+    "restoreTerminals.runOnStartup": true, // true is the default
+    // set to false if using a keybinding or command palette
+    "restoreTerminals.terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "dotnet",
+                    "color": "Cyan",
+                    "commands": [
+                        "cd C://Users/axll/udemy-studies/DatingApp/API",
+                    ]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "angular",
+                    "color": "terminal.ansiYellow",
+                    "commands": [
+                        "cd zip",
+                        "cd C://Users/axll/udemy-studies/DatingApp/client"
+                    ]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "client",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "cd zip",
+                        "cd C://Users/axll/udemy-studies/DatingApp/client"
+                    ]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "udemy-studies",
+                    "color": "terminal.ansiWhite",
+                    "commands": [
+                        "cd zip",
+                        "cd C://Users/axll/udemy-studies"
+                    ]
+                }
+            ]
+        },
+    ]
+}

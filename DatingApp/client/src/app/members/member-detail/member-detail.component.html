@@ -1,6 +1,6 @@
 <div *ngIf="member" class="row">
     <div class="card col-4" >
-        <img src="{{member.photos?.[0]?.url || './assets/user.png'}}" class="img-main">
+        <img src="{{member.photos[0].url || './assets/user.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
@@ -16,7 +16,7 @@
           2 days ago
         </div>
     </div>
-    <div class="col-8 px-2" >
+    <div class="col-8 px-3" >
         <tabset>
             <tab class="nav nav-tabs" role="tablist" heading="Looking for">
               <div class="col-md-7 p-1">

@@ -1,0 +1,73 @@
+<div *ngIf="member" class="row">
+    <div class="card col-4" >
+        <img src="{{member.photos[0].url || './assets/user.png'}}" class="img-main">
+        <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
+        <div class="card-body">
+          <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
+          <h6 class="card-subtitle text-muted">Last active: {{member.lastactive}}</h6>
+        </div>
+        <ul class="list-group" >
+            <li class="list-group-item row">
+                <button  type="submit" [disabled]="!editForm.dirty" form="editForm" class="btn btn-success col-12">Save</button>
+            </li>
+        </ul>
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+    </div>
+    <div class="col-8 px-3" >
+        <div class="alert alert-dismissible alert-info" *ngIf="editForm.dirty"  >
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" ></button> -->
+            <strong>Attention:</strong> You have made changes. Any unsaved changes will be lost.
+          </div>
+        <div class="row">
+            <tabset [justified]="true">
+                <tab class="nav nav-tabs col-12" role="tablist" heading="About {{member.kwonas}}">
+                  <div class="col-md-12 p-1">
+                    <form class="col-md-12" id="editForm" #editForm="ngForm" (ngSubmit)="updateMember()">
+                        <h4 class="mt-2">Description</h4>
+                        <textarea 
+                            class="form-control"
+                            [(ngModel)]="member.bio"
+                            name="bio" 
+                            rows="4">
+                        </textarea>
+                        <h4 class="mt-2">Looking for</h4>
+                        <textarea 
+                            class="form-control"
+                            [(ngModel)]="member.lookingfor"
+                            name="lookingfor" 
+                            rows="8">
+                        </textarea>
+                        <h4 class="mt-2">Interests</h4>
+                        <textarea 
+                        class="form-control"
+                            [(ngModel)]="member.intrests"
+                            name="intrests" 
+                            rows="4">
+                        </textarea>
+                        <h4 class="mt-2">Location details</h4>
+                        <div class="form-group row">
+                            <div class="form-floating mb-3 col-6">
+                                <input class="form-control" id="city" type="text" name="city" placeholder="City" [(ngModel)]="member.city" >
+                                <label for="city">City: </label>    
+                            </div>
+                            <div class="form-floating mb-3 col-6">
+                                <input class="form-control" id="country" type="text" name="country" placeholder="Country" [(ngModel)]="member.country" >
+                                <label for="country">Country: </label>    
+                            </div>
+                        </div>
+                    </form>
+                  </div>
+                </tab>
+                <tab class="nav nav-tabs col-12" role="tablist" heading="Photo Gallery">
+                  <div class="col-md-12 p-1">
+                    <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                    <p class="lead">{{member.bio}}</p>
+                  </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+<br>

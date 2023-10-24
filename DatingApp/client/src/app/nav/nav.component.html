@@ -61,7 +61,7 @@
                         <a [class.active]="!statusOnline" class="nav-link btn-status" data-bs-toggle="tab"  aria-selected="false" role="tab" (click)="statusChangeOnline($event)" >Offline</a>
                     </li>                
                 </ul>
-                <a class="dropdown-item" >Edit Profile</a>
+                <a class="dropdown-item" routerLink="member/edit" >Edit Profile</a>
                 <a class="dropdown-item" (click)="logout()" >Logout</a>
             </div>
         </div>
