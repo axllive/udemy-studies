@@ -16,6 +16,7 @@ namespace API.DTOs
             //.TwoWays() //DISPONÍVEL APENAS PARA PROPRIEDADE<>PROPRIEDADE, Ñ FUNCIONA COM OBJ RELACIONADO
             //.Map(destino => destino, origem => origem)
 
+
             TypeAdapterConfig<AppUser, RegisterDTO>
             .NewConfig()
             .Map(destino => destino.username ,      origem => origem.UserName)

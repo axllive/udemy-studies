@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Security.Claims;
+using System.Text.Json;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
@@ -59,4 +60,21 @@ public class UsersController : BaseAPiController
 
         return input.Substring(index + 1);
     }       
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto){
+
+        string username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        AppUser user = await _userRepository.GetUserByUsernameAsync(username);
+
+        if (user == null) return NotFound();
+
+        memberUpdateDto.Adapt(user);
+
+        _userRepository.Update(user);
+
+        if (await _userRepository.SaveAllAsync()) return NoContent();
+        return BadRequest("Falied to update user");
+
+    }
 }
