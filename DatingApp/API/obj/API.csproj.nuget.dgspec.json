@@ -41,6 +41,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.22.0, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
