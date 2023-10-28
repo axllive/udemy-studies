@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { GalleryItem, ImageItem } from 'ng-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
@@ -14,6 +15,7 @@ import { MembersService } from 'src/app/_services/members.service';
 })
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm | undefined
+  images: GalleryItem[] = [];
 
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any){
     if(this.editForm?.dirty) {return $event.returnValue = true;}
@@ -36,7 +38,10 @@ export class MemberEditComponent implements OnInit {
   loadMember(){
     if(!this.user) return;
     this.memberService.getMemberByName(this.user.username).subscribe({
-      next: membr => this.member = membr
+      next: membr => {
+        this.member = membr
+        this.getImages();
+      }
     })
   }
 
@@ -50,4 +55,10 @@ export class MemberEditComponent implements OnInit {
     
   }
 
+  getImages(){
+    if(!this.member) return;
+    for (const photo of this.member?.photos){
+      this.images.push(new ImageItem({src: photo.url, thumb:photo.url}))
+    }
+  }
 }

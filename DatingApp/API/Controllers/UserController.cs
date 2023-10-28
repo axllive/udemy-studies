@@ -2,6 +2,7 @@
 using System.Text.Json;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +17,13 @@ public class UsersController : BaseAPiController
 {
     public readonly ITokenService _tokenService;
     public readonly IUserRepository _userRepository;
+    public readonly IPhotoService _photoService;
 
-    public UsersController(IUserRepository userRepository, ITokenService tokenService)
+    public UsersController(IUserRepository userRepository, ITokenService tokenService, IPhotoService photoService)
     {
         _userRepository = userRepository;
         _tokenService = tokenService;
+        _photoService = photoService;
     }
 
     [HttpGet]
@@ -62,10 +65,9 @@ public class UsersController : BaseAPiController
     }       
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto){
-
-        string username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        AppUser user = await _userRepository.GetUserByUsernameAsync(username);
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    {
+        AppUser user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
         if (user == null) return NotFound();
 
@@ -75,6 +77,35 @@ public class UsersController : BaseAPiController
 
         if (await _userRepository.SaveAllAsync()) return NoContent();
         return BadRequest("Falied to update user");
+    } 
 
+    [HttpPost("add-photo")]
+    public async Task<ActionResult<PhotoDTO>> AddPhoto(IFormFile file)
+    {
+        AppUser user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+        
+        if (user == null) return NotFound();
+
+        var result = await _photoService.AddPhotoAsync(file);
+
+        if (result.Error != null) return BadRequest(result.Error.Message);
+
+        Photo photo = new(){
+            Url = result.SecureUrl.AbsoluteUri,
+            PublicId = result.PublicId
+        };
+
+        if(user.Photos.Count == 0) photo.IsMain = true;
+
+        if(await _userRepository.AddPhoto(user, photo))
+        {
+            return CreatedAtAction(
+                nameof(GetUserByName),  
+                new { name = user.UserName }, 
+                photo.Adapt<PhotoDTO>()
+                );
+        }
+
+        return BadRequest("error adding photo");
     }
 }

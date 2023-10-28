@@ -1,0 +1,16 @@
+<div class="row col-12 gallery-div" *ngIf="member" >
+    <div class="card col-3 thumb-card my-1" *ngFor="let photo of member.photos" style="margin-left: .5rem; margin-right: .5rem;">
+        <img src="{{photo.url}}" alt="" class="img-thumbnail mb-1">
+        <div class="row p-1 card-footer animate">
+                <div class="col-4 thumb-col px-0">
+                    <button class="btn btn-sm btn-primary mx-1" ><i class="fa fa-id-badge"></i></button>
+                </div>
+                <div class="col-4 thumb-col px-0">
+                    <button class="btn btn-sm btn-secondary mx-1" ><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="col-4 thumb-col px-0">
+                    <button class="btn btn-sm btn-danger mx-1" ><i class="fa fa-trash" ></i></button>
+                </div>
+        </div>
+    </div>
+</div>

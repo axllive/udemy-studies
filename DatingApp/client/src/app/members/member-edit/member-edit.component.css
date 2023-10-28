@@ -5,3 +5,33 @@
 .card{
     height: 100%;
 }
+.pill-btn{
+    font-size: large;
+}
+.pill-btn:hover{
+    cursor: pointer;
+    background-color: rgb(197, 43, 111) !important;
+}
+.card-pill-footer{
+    border: none;
+    position: absolute;
+    padding-bottom: 30px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-bottom-width: 15px;
+    right: 12%;
+    top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+}
+
+.card-img-wrapper:hover .card-pill-footer{
+    bottom: 0;
+    opacity: 1;
+}
+
+.animate{
+    transition: all 0.3s ease-in-out;
+}

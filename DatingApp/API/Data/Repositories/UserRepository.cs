@@ -42,5 +42,16 @@ namespace API.Data.Repositories
         {
              _context.Entry(usr).State = EntityState.Modified;
         }
+
+        public async Task<bool> AddPhoto(AppUser user, Photo photo)
+        {   
+            AppUser usr = await _context.Users.FindAsync(user.Id);
+            if (usr != null)
+            {
+                usr.Photos.Add(photo);                
+                return await SaveAllAsync();
+            }
+            else return false;
+        }
     }
 }

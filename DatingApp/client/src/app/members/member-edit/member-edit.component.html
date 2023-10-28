@@ -1,6 +1,13 @@
 <div *ngIf="member" class="row">
-    <div class="card col-4" >
+    <div class="card col-4 card-img-wrapper" >
         <img src="{{member.photos[0].url || './assets/user.png'}}" class="img-main">
+        <div class="card-pill-footer animate">
+            <ul class="list-inline member-icons animate text-center nav nav-pills ">
+              <li class="list-inline-item">
+                <a class="badge bg-primary p-2 pill-btn"><i class="fa fa-pencil-square"></i></a>
+              </li>
+            </ul>
+        </div>
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
@@ -60,10 +67,10 @@
                     </form>
                   </div>
                 </tab>
-                <tab class="nav nav-tabs col-12" role="tablist" heading="Photo Gallery">
+                <tab class="nav nav-tabs col-12" role="tablist" heading="Photo Gallery" style="width: 110%;">
                   <div class="col-md-12 p-1">
                     <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-                    <p class="lead">{{member.bio}}</p>
+                    <app-photo-editor [member]="member" ></app-photo-editor>
                   </div>
                 </tab>
             </tabset>

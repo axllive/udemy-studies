@@ -1,0 +1,16 @@
+@media only screen and (max-width: 1020px) {
+    .gallery-div {
+        margin-left: 5%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .btn {
+        padding-right: 15%;
+        padding-left: 15%;
+    }
+    .thumb-card{
+        margin-right: 4% !important;
+        margin-left: 4% !important;
+    }
+}
