@@ -14,3 +14,12 @@
         margin-left: 4% !important;
     }
 }
+
+img{
+    width: 100%;
+}
+
+.nv-file-over{
+    background-color: rgba(215, 215, 215, 0.3);
+    border: dotted 4px rgba(232, 50, 131, 0.3);
+}

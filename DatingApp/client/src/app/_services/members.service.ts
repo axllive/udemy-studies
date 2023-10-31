@@ -44,6 +44,7 @@ export class MembersService {
     )
     )
   }
+
   getMemberByName(name: string){
     return this.http.get<Member>(this.baseUrl + 'users/user/byname/'+ name ).pipe(
       //para usar como array no component que recebe o objeto
@@ -62,6 +63,14 @@ export class MembersService {
 
   updateMember(member: Member){
     return this.http.put(this.baseUrl + 'users', member);
+  }
+
+  setMainPhoto(photoId: number){
+    return this.http.put(this.baseUrl + 'users/set-main-photo/'+ photoId,  photoId);
+  }
+
+  deletePhoto(photoId: number){
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 
 }

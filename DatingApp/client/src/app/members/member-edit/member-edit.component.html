@@ -1,6 +1,6 @@
 <div *ngIf="member" class="row">
     <div class="card col-4 card-img-wrapper" >
-        <img src="{{member.photos[0].url || './assets/user.png'}}" class="img-main">
+        <img src="{{mainPhoto || './assets/user.png'}}" class="img-main">
         <div class="card-pill-footer animate">
             <ul class="list-inline member-icons animate text-center nav nav-pills ">
               <li class="list-inline-item">
@@ -69,7 +69,9 @@
                 </tab>
                 <tab class="nav nav-tabs col-12" role="tablist" heading="Photo Gallery" style="width: 110%;">
                   <div class="col-md-12 p-1">
-                    <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                    <div class="col-10">
+                      <h2 class="featurette-heading text-center">Your photos. <span class="text-muted">Edit, add, and delete.</span></h2>
+                    </div>                    
                     <app-photo-editor [member]="member" ></app-photo-editor>
                   </div>
                 </tab>

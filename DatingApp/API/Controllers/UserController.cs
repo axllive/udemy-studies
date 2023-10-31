@@ -108,4 +108,41 @@ public class UsersController : BaseAPiController
 
         return BadRequest("error adding photo");
     }
+
+    [HttpPut("set-main-photo/{photoId}")]
+    public async Task<ActionResult> SetMainPhoto(int photoId){
+
+        AppUser usr = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        if (usr == null) return NotFound();
+
+        Photo photo = usr.Photos.FirstOrDefault(x => x.Id == photoId);
+
+        if (photo == null) return NotFound();
+
+        if (photo.IsMain) return BadRequest("This photo is already your main photo.");
+
+        if (await _userRepository.SetMainPhoto(usr, photo)) return NoContent();
+        else return BadRequest("Error setting the main photo");
+    }
+
+    [HttpDelete("delete-photo/{photoId}")]
+    public async Task<IActionResult> DeletePhoto(int photoId){
+        AppUser usr = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        if (usr == null) return NotFound();
+
+        Photo photo = usr.Photos.FirstOrDefault(x => x.Id == photoId);
+
+        if (photo == null) return NotFound();
+
+        if (photo.IsMain) return BadRequest("Cant delete your main photo.");
+
+        if(photo.PublicId != null){
+            var result = await _photoService.DeletePhotoAsync(photo);
+            if(result.Error != null) return BadRequest(result.Error.Message);
+            else if ( ! await _userRepository.SaveAllAsync() ) return BadRequest(("Error on deleting photo"));
+        }
+        return Ok();
+    }
 }

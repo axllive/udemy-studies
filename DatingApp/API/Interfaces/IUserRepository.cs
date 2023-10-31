@@ -14,5 +14,6 @@ namespace API.Interfaces
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
         public Task<bool> AddPhoto(AppUser user, Photo photo);
+        public Task<bool> SetMainPhoto(AppUser user, Photo photo);
     }
 }

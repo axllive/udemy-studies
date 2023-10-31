@@ -16,6 +16,7 @@ import { MembersService } from 'src/app/_services/members.service';
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm | undefined
   images: GalleryItem[] = [];
+  mainPhoto: string | undefined = "";
 
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any){
     if(this.editForm?.dirty) {return $event.returnValue = true;}
@@ -41,6 +42,7 @@ export class MemberEditComponent implements OnInit {
       next: membr => {
         this.member = membr
         this.getImages();
+        this.mainPhoto = this.member?.photos.find(x => x.ismain)?.url;
       }
     })
   }

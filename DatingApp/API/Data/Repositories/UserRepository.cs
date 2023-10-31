@@ -53,5 +53,24 @@ namespace API.Data.Repositories
             }
             else return false;
         }
+        public async Task<bool> SetMainPhoto(AppUser user, Photo photo)
+        {   
+            AppUser usr = await _context.Users
+                .Include( x => x.Photos)
+                .Where(x => x.Id == user.Id)
+                .FirstOrDefaultAsync();
+
+            if (usr != null)
+            {
+                Photo currentMain = usr.Photos.FirstOrDefault(x => x.IsMain);
+
+                if(currentMain != null) currentMain.IsMain = false;
+
+                usr.Photos.FirstOrDefault(x => x.Id == photo.Id).IsMain = true;
+                
+                return await SaveAllAsync();
+            }
+            else return false;
+        }
     }
 }

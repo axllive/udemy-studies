@@ -2,18 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Services
 {
     public class PhotoService : IPhotoService
     {
+        private readonly DBContext _context;
         private readonly Cloudinary _cloudnary;
-        public PhotoService(IOptions<CloudnarySettings> configurations)
+        public PhotoService(IOptions<CloudnarySettings> configurations, DBContext context)
         {
             Account acc = new (
                 configurations.Value.CloudName,
@@ -21,6 +24,7 @@ namespace API.Services
                 configurations.Value.ApiSecret
             );
             _cloudnary = new Cloudinary(acc);
+            _context = context;
         }
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
@@ -40,9 +44,12 @@ namespace API.Services
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
-        {
-            DeletionParams deletionParams = new(publicId);
+        public async Task<DeletionResult> DeletePhotoAsync(Photo photo)
+        {   
+            if(photo != null){
+                _context.Entry(photo).State = EntityState.Deleted;
+            }
+            DeletionParams deletionParams = new(photo.PublicId);
             return await _cloudnary.DestroyAsync(deletionParams);
         }
     }
