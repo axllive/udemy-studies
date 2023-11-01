@@ -8,13 +8,14 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent {
   model: any = {}
   usr: any = {}
   statusOnline = false;
   dropdownIsOpen = false;
+  isCollapsed = false;
   usrname : string = this.accountService.getCurrentUser();
   //whe angular is in strict mode, is mandatory initalize the proprieties
   currentUser$: Observable< User | null> = of(null);
