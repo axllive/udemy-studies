@@ -16,6 +16,7 @@ import { MembersService } from 'src/app/_services/members.service';
 export class MemberDetailComponent implements OnInit{
   member: Member | undefined;
   images: GalleryItem[] = [];
+  mainPhoto: string | undefined = "";
 
   constructor(private memberService: MembersService, private route: ActivatedRoute) {  }
   
@@ -27,6 +28,7 @@ export class MemberDetailComponent implements OnInit{
     this.memberService.getMemberByName(username).subscribe({
       next: member => {
         this.member = member,
+        this.mainPhoto = member?.photos.find(x => x.ismain)?.url;
         this.getImages()
       }
     })

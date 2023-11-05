@@ -1,15 +1,21 @@
 <div *ngIf="member" class="row">
     <div class="card col-4" >
-        <img src="{{member.photos[0].url || './assets/user.png'}}" class="img-main">
+        <img src="{{mainPhoto || './assets/user.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
           <h6 class="card-subtitle text-muted">Last active: {{member.lastactive}}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item row">
-            <button class="btn btn-primary col-6">Like</button>
-            <button class="btn btn-info col-6">Messages</button>
+          <li class="list-group p-1">
+            <div class="row col-md-12">
+              <div class="col-md-6 text-center">
+                <button class="btn btn-primary">Like</button>
+              </div>
+              <div class="col-md-6 text-center">
+                <button class="btn btn-info px-2">Messages</button>
+              </div>
+            </div>
         </li>
         </ul>
         <div class="card-footer text-muted">

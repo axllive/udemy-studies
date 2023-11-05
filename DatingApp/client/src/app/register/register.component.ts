@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +14,37 @@ export class RegisterComponent implements OnInit{
 /*   @Input() usersFromHomeComponent : any; */
   /* relação filho-pai entre nível componentes */
   @Output() cancelRegister = new EventEmitter();
-  
+  registerForm: FormGroup = new FormGroup({});
   model:any = {}
   usrname: string = "";
   
-  constructor( private accountService: AccountService, private router: Router, private toast: ToastrService ) {}
+  constructor( private accountService: AccountService,
+     private router: Router, 
+     private toast: ToastrService,
+     private fb: FormBuilder ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(){
+    this.registerForm = this.fb.group({
+      username:         ['', Validators.required],
+      password:         ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+      confirmPassword:  ['', [Validators.required, this.matchValues('password')]],
+      bio:              ['', Validators.required]
+    });
+    this.registerForm.controls['password'].valueChanges.subscribe({
+      next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+    })
+  }
+
+  matchValues(matchTo: string): ValidatorFn{
+    return (control: AbstractControl) => {
+      //null é o retorno padrão para caso a validação esteja ok
+      return control.value === control.parent?.get(matchTo)?.value ? null : { matchingValues: true }
+    }
+  }
 
   register()
   {  
