@@ -4,6 +4,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using API.Services;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,12 +30,12 @@ namespace API.Controllers
 
             using var hmac = new HMACSHA512();
 
-            AppUser usr = new AppUser{
-                UserName = registerDTO.username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.password)),
-                PasswordSalt = hmac.Key,
-                Bio = registerDTO.bio
-            };
+            AppUser usr = registerDTO.Adapt<AppUser>();
+
+            
+                usr.UserName = registerDTO.username.ToLower();
+                usr.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.password));
+                usr.PasswordSalt = hmac.Key;
 
             _context.Users.Add(usr);
             await _context.SaveChangesAsync();
@@ -63,12 +64,13 @@ namespace API.Controllers
                 if (computedHash[i] != usr.PasswordHash[i]) return Unauthorized("Invalid password.");
             }
 
-            return new UserDTO
+            UserDTO usrn = new UserDTO
             {
                 username = usr.UserName,
                 token = _tokenService.CreateToken(usr),
-                currentphotourl = usr.Photos.FirstOrDefault(d => d.IsMain).Url
+                currentphotourl = usr.Photos.FirstOrDefault(d => d.IsMain) == null ? "" : usr.Photos.FirstOrDefault(d => d.IsMain).Url
             };
+            return usrn;
         }
 
         public async Task<bool> UserExists(string username)

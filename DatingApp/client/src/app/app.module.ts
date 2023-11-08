@@ -28,6 +28,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { TextAreaInputComponent } from './_forms/text-area-input/text-area-input.component';
+import { DatepickerInputComponent } from './_forms/datepicker-input/datepicker-input.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 /* Adicionando comentários ao Angular */
 /* @NgModule
   decorator** resposável pela raiz do cliente, como se fosse a program
@@ -53,7 +55,8 @@ import { TextAreaInputComponent } from './_forms/text-area-input/text-area-input
     MemberEditComponent,
     PhotoEditorComponent,
     TextInputComponent,
-    TextAreaInputComponent
+    TextAreaInputComponent,
+    DatepickerInputComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { TextAreaInputComponent } from './_forms/text-area-input/text-area-input
     ReactiveFormsModule,
     SharedModule,
     TabsModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
