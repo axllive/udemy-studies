@@ -1,6 +1,9 @@
 
+using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repositories
@@ -12,12 +15,14 @@ namespace API.Data.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        public async Task<PagedList<RegisterDTO>> GetUsersAsync(UserParams usrParams)
         {
-            return await _context.Users
+            var query = _context.Users
             .Include(usr => usr.Photos)
-            .AsNoTracking()
-            .ToListAsync();
+            .ProjectToType<RegisterDTO>()
+            .AsNoTracking();
+
+            return await PagedList<RegisterDTO>.CreateAsync(query, usrParams.PageNumber, usrParams.PageSize);
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)

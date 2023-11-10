@@ -3,6 +3,7 @@ using System.Text.Json;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -27,11 +28,14 @@ public class UsersController : BaseAPiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetUsers()
+    public async Task<ActionResult<PagedList<RegisterDTO>>> GetUsers([FromQuery]UserParams usrParams)
     {
-        var users = await _userRepository.GetUsersAsync();
+        var users = await _userRepository.GetUsersAsync(usrParams);
         
-        if (users.Any()) return users.Adapt<List<RegisterDTO>>();
+        Response.AddPaginationHeader(new PaginationHeader( users.CurrentPage, users.PageSize, 
+        users.TotalCount, users.TotalPages ));
+
+        if (users.Any()) return Ok (users);
         else return NotFound("Database returned no users");
             
     }
