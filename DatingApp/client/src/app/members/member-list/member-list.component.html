@@ -7,26 +7,30 @@
     <form class="d-flex mb-3 px-0 form-flex-row" #form="ngForm" (ngSubmit)="loadMembers()" autocomplete="off">
       <div class="col-lg-6 row flex-col">
         <div class="d-flex w-50 flex-col">
-          <label class="col-form-label">Age from</label>
+          <label class="col-form-label"
+                 style="width: 100% !important;"
+                  >Age from</label>
           <input  type="number"
                   class="form-control mx-1"
                   name="minAge" 
                   placeholder="Min Age"
-                  style="height: fit-content;     width: 50% !important;"
+                  style="height: fit-content;"
                   [(ngModel)]="usrParams.minAge">
         </div>
         <div class="d-flex w-50 flex-col">
-          <label class="col-form-label">Age to</label>
+          <label class="col-form-label"
+                 style="width: 100% !important;"
+                 >Age to</label>
           <input  type="number"
                   class="form-control mx-1"
                   name="maxAge" 
-                  style="height: fit-content;     width: 50% !important;"
+                  style="height: fit-content;"
                   [(ngModel)]="usrParams.maxAge">
         </div>
       </div>
 
       <div class="col-lg-6 row mx-2 flex-col">
-        <div class="d-flex w-50 flex-col">
+        <div class="d-flex col-7 flex-col">
           <label  class="col-form-label me-2">Show:</label>
           <select name="gender"
                   class="form-select ms-1"
@@ -37,9 +41,9 @@
                           </option>
                 </select>
         </div>
-        <div class="d-flex w-50 flex-col">
-          <button class="btn btn-sm btn-primary ms-1" type="submit" >Apply Filters</button>
-          <button class="btn btn-sm btn-info ms-1" type="submit" (click)="resetFilter()" >Reset Filters</button>  
+        <div class="d-flex col-5 flex-col" style="justify-content: center;">
+          <button class="btn  btn-primary ms-1" type="submit" >Apply</button>
+          <button class="btn  btn-secondary ms-1" type="submit" (click)="resetFilter()" >Reset</button>  
         </div>  
       </div>    
     </form>

@@ -3,6 +3,8 @@
 }
 .card-body{
     padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .card:hover image{
     transform: scale(1.2, 1.2);

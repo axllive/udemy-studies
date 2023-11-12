@@ -5,7 +5,8 @@
     }
 }
 
-@media (max-width: 800px) {
+
+@media (max-width: 992px) {
     .form-flex-row{
         flex-direction: column !important;
         align-items: center;
