@@ -1,5 +1,52 @@
 <div class="container marketing">
+  <div class="text-center mt-3">
+    <h2>Your matchers - {{pagination?.totalItems}} found</h2>
+  </div>
+  
+  <div class="container mt-3 row col-12 form-flex-row" *ngIf="usrParams">
+    <form class="d-flex mb-3 px-0 form-flex-row" #form="ngForm" (ngSubmit)="loadMembers()" autocomplete="off">
+      <div class="col-lg-6 row flex-col">
+        <div class="d-flex w-50 flex-col">
+          <label class="col-form-label">Age from</label>
+          <input  type="number"
+                  class="form-control mx-1"
+                  name="minAge" 
+                  placeholder="Min Age"
+                  style="height: fit-content;     width: 50% !important;"
+                  [(ngModel)]="usrParams.minAge">
+        </div>
+        <div class="d-flex w-50 flex-col">
+          <label class="col-form-label">Age to</label>
+          <input  type="number"
+                  class="form-control mx-1"
+                  name="maxAge" 
+                  style="height: fit-content;     width: 50% !important;"
+                  [(ngModel)]="usrParams.maxAge">
+        </div>
+      </div>
 
+      <div class="col-lg-6 row mx-2 flex-col">
+        <div class="d-flex w-50 flex-col">
+          <label  class="col-form-label me-2">Show:</label>
+          <select name="gender"
+                  class="form-select ms-1"
+                  [(ngModel)]="usrParams.gender" >
+                    <option *ngFor="let gender of genderList"
+                            [value]="gender.value" >
+                            {{gender.display}}
+                          </option>
+                </select>
+        </div>
+        <div class="d-flex w-50 flex-col">
+          <button class="btn btn-sm btn-primary ms-1" type="submit" >Apply Filters</button>
+          <button class="btn btn-sm btn-info ms-1" type="submit" (click)="resetFilter()" >Reset Filters</button>  
+        </div>  
+      </div>    
+    </form>
+  </div>
+</div>
+
+<div class="container marketing">
     <!-- Three columns of text below the carousel -->
     <div class="row" *ngIf="members else noUser">
       <div *ngFor="let usr of members" class="member-wrapper col-lg-3">

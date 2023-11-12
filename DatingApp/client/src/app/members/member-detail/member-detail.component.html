@@ -1,4 +1,4 @@
-<div *ngIf="member" class="row">
+<div *ngIf="member" class="row flex-row">
     <div class="card col-4" >
         <img src="{{mainPhoto || './assets/user.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
@@ -9,10 +9,10 @@
         <ul class="list-group list-group-flush">
           <li class="list-group p-1">
             <div class="row col-md-12">
-              <div class="col-md-6 text-center">
+              <div class="w-50 text-center">
                 <button class="btn btn-primary">Like</button>
               </div>
-              <div class="col-md-6 text-center">
+              <div class="w-50 text-center">
                 <button class="btn btn-info px-2">Messages</button>
               </div>
             </div>
@@ -22,7 +22,7 @@
           2 days ago
         </div>
     </div>
-    <div class="col-8 px-3" >
+    <div class="col-8 px-3 mt-2" >
         <tabset>
             <tab class="nav nav-tabs" role="tablist" heading="Looking for">
               <div class="col-md-7 p-1">

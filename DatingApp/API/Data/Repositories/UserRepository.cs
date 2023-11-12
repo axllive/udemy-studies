@@ -17,12 +17,22 @@ namespace API.Data.Repositories
         }
         public async Task<PagedList<RegisterDTO>> GetUsersAsync(UserParams usrParams)
         {
-            var query = _context.Users
+            var query = _context.Users.AsQueryable();
+
+            query = query.Where(u => u.UserName != usrParams.CurrentUsername);
+            query = query.Where(u => u.Gender != usrParams.Gender);
+
+            var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears( -usrParams.MaxAge - 1 ));
+            var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears( -usrParams.MinAge ));
+
+            query = query.Where(e => e.DateOfBirth >= minDob && e.DateOfBirth <= maxDob);
+
+            return await PagedList<RegisterDTO>.CreateAsync(
+            query
             .Include(usr => usr.Photos)
             .ProjectToType<RegisterDTO>()
-            .AsNoTracking();
-
-            return await PagedList<RegisterDTO>.CreateAsync(query, usrParams.PageNumber, usrParams.PageSize);
+            .AsNoTracking(),
+             usrParams.PageNumber, usrParams.PageSize);
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
