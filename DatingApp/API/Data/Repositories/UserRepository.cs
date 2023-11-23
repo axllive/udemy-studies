@@ -26,6 +26,11 @@ namespace API.Data.Repositories
             var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears( -usrParams.MinAge ));
 
             query = query.Where(e => e.DateOfBirth >= minDob && e.DateOfBirth <= maxDob);
+            query = usrParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                 _ => query.OrderByDescending(u => u.LastActive)
+            };
 
             return await PagedList<RegisterDTO>.CreateAsync(
             query

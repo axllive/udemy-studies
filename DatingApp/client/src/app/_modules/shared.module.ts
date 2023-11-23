@@ -8,6 +8,9 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from "ngx-timeago";
+import { TimePastPipe } from 'ng-time-past-pipe';
 
 
 
@@ -28,6 +31,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
+    TimeagoModule.forRoot(),
+    TimePastPipe
   ],
   exports:[
     BsDropdownModule,
@@ -36,7 +42,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     FileUploadModule,
     BrowserAnimationsModule,
     BsDatepickerModule,
-    PaginationModule
+    PaginationModule,
+    ButtonsModule,
+    TimeagoModule,
+    TimePastPipe
   ]
 })
 export class SharedModule { }

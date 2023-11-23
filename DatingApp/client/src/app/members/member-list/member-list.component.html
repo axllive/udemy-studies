@@ -1,11 +1,36 @@
 <div class="container marketing">
-  <div class="text-center mt-3">
-    <h2>Your matchers - {{pagination?.totalItems}} found</h2>
+  <div class="container mt-3 row col-12 form-flex-row">
+    <div class="text-left mt-3 col-8 px-0" >
+      <h4>Your matches - {{pagination?.totalItems}} found</h4>
+    </div>
+    <div *ngIf="usrParams" class="btn-group col-4 mt-3 px-0 flex-col" role="group" aria-label="Basic radio toggle button group">
+    <input  type="radio" 
+              class="btn-check btn-sm" 
+              name="orderBy" 
+              id="btnradio1"
+              autocomplete="off" 
+              checked=""
+              [(ngModel)]="usrParams.orderBy"
+              btnRadio="lastActive" 
+              (click)="loadMembers()">
+      <label class="btn btn-outline-primary px-0" for="btnradio1">Last Active</label>
+      <input  type="radio"
+              class="btn-check btn-sm" 
+              name="orderBy" 
+              id="btnradio2" 
+              checked=""
+              autocomplete="off" 
+              [(ngModel)]="usrParams.orderBy"
+              (click)="loadMembers()"
+              btnRadio="created">
+      <label class="btn btn-outline-primary px-0" for="btnradio2">Newest Members</label>
+    </div>
+
   </div>
-  
+
   <div class="container mt-3 row col-12 form-flex-row" *ngIf="usrParams">
     <form class="d-flex mb-3 px-0 form-flex-row" #form="ngForm" (ngSubmit)="loadMembers()" autocomplete="off">
-      <div class="col-lg-6 row flex-col">
+      <div class="col-md-6 row flex-col">
         <div class="d-flex w-50 flex-col">
           <label class="col-form-label"
                  style="width: 100% !important;"
@@ -29,7 +54,7 @@
         </div>
       </div>
 
-      <div class="col-lg-6 row mx-2 flex-col">
+      <div class="col-md-6 row mx-2 flex-col">
         <div class="d-flex col-7 flex-col">
           <label  class="col-form-label me-2">Show:</label>
           <select name="gender"

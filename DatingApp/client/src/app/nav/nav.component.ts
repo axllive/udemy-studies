@@ -16,7 +16,7 @@ export class NavComponent {
   statusOnline = false;
   dropdownIsOpen = false;
   isCollapsed = false;
-  usrname : string = this.accountService.getCurrentUser();
+  usrname : string = "";
   //whe angular is in strict mode, is mandatory initalize the proprieties
   currentUser$: Observable< User | null> = of(null);
 
@@ -26,7 +26,6 @@ export class NavComponent {
     this.currentUser$ = this.accountService.currentUser$;
     if (this.accountService.getCurrentUser() != "") {
       let jsonUsr = JSON.parse( this.accountService.getCurrentUser() );
-      console.log(jsonUsr);
       this.usrname = jsonUsr.knownas;
       this.usr = jsonUsr;
       if(jsonUsr) this.statusOnline = true;

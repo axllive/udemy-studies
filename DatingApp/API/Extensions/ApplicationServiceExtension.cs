@@ -23,6 +23,7 @@ namespace API.Extensions
                 services.AddScoped<IUserRepository, UserRepository>();
                 services.Configure<CloudnarySettings>(configuration.GetSection("CloudnarySettings"));
                 services.AddScoped<IPhotoService, PhotoService>();
+                services.AddScoped<LogUserActivity>();
                 return services;
             }
     }

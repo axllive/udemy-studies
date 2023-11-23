@@ -1,10 +1,22 @@
+<div class="row" >
+  <table class="table table-hover">
+    <tr class="table-light">
+      <th scope="row">
+        <div class=" d-flex align-items-end justify-content-end" >
+          <button class="btn btn-link p-0 text-black" style="text-decoration: none;" (click)="voltar()">Back to matches <i class="fa fa-arrow-circle-left fa-lg text-black" aria-hidden="true"></i>
+          </button>
+        </div>
+      </th>      
+    </tr>
+  </table>
+</div>
 <div *ngIf="member" class="row flex-row">
     <div class="card col-4" >
         <img src="{{mainPhoto || './assets/user.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
-          <h6 class="card-subtitle text-muted">Last active: {{member.lastactive}}</h6>
+          <h6 class="card-subtitle text-muted">Member scince: {{member.created}}</h6>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group p-1">
@@ -19,10 +31,10 @@
         </li>
         </ul>
         <div class="card-footer text-muted">
-          2 days ago
+          Last active: {{member.lastactive | timeago }}
         </div>
     </div>
-    <div class="col-8 px-3 mt-2" >
+    <div class="col-7 px-3 mt-2" >
         <tabset>
             <tab class="nav nav-tabs" role="tablist" heading="Looking for">
               <div class="col-md-7 p-1">
@@ -51,28 +63,11 @@
               </div>
             </tab>
             <tab class="nav nav-tabs" role="tablist" heading="More">
-              <div class="col-md-7 p-1">
+              <div class="col-md-8 p-1">
                 <h2 class="featurette-heading">More heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
               </div>
             </tab> 
-            <tab class="nav nav-tabs" role="tablist" heading="Even more">
-              <div class="col-md-7 p-1">
-                <h2 class="featurette-heading">Even more heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
-              </div>
-            </tab> 
-              <!-- <tab class="nav nav-tabs" >
-                <ng-template tabHeading>                         
-                  <div class="dropdown p-0" dropdown>                  
-                    <a class="dropdown-toggle p-0"  dropdownToggle >Dropit</a>    
-                    <div class="dropdown-menu status-menu" *bsDropdownMenu="" >
-                      <a class="dropdown-item" >Edit Profile</a>
-                      <a class="dropdown-item"  >Logout</a>
-                    </div>                
-                  </div>                    
-                </ng-template>
-              </tab> -->
         </tabset>
     </div>
 </div>

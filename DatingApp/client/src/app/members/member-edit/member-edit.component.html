@@ -11,7 +11,7 @@
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
-          <h6 class="card-subtitle text-muted">Last active: {{member.lastactive}}</h6>
+          <h6 class="card-subtitle text-muted">Created in: {{member.created}}</h6>
         </div>
         <ul class="list-group" >
             <li class="list-group-item row">
@@ -19,7 +19,8 @@
             </li>
         </ul>
         <div class="card-footer text-muted">
-          2 days ago
+          Last active: {{member.lastactive}}
+          Last active: {{member.lastactive | timePast}}
         </div>
     </div>
     <div class="col-8 px-3" >

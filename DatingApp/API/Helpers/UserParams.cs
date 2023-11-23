@@ -9,6 +9,7 @@ namespace API.Helpers
         private int _pageSize = 10;
         public string CurrentUsername { get; set; }
         public string Gender { get; set; }
+        public string OrderBy { get; set; } = "lastActive";
         public int MinAge { get; set; } = 18;
         public int MaxAge { get; set; } = 100;
 

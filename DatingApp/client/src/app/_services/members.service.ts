@@ -16,6 +16,7 @@ export class MembersService {
   private currentUsersSource = new BehaviorSubject< any[] | null> (null);
   private currentUserSource = new BehaviorSubject< any | null> (null);
   currentUsers$ = this.currentUsersSource.asObservable();
+  usrParams: UserParams | undefined;
   
 
   constructor(private http: HttpClient) { }
@@ -27,7 +28,8 @@ export class MembersService {
     params = params.append('minAge', userParams.minAge);
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
-
+    params = params.append('orderBy', userParams.orderBy);
+    this.usrParams = userParams;
     return this.getPaginatedResults<Member[]>(this.baseUrl + 'users', params);
     
   }
@@ -56,6 +58,14 @@ export class MembersService {
       params = params.append('pageSize', itemsPerPage);
     }
     return params;
+  }
+
+  getUserParams(){
+    return this.usrParams;
+  }
+
+  setUserParams(params: UserParams){
+    this.usrParams = params;
   }
 
   getMemberById(id: number){

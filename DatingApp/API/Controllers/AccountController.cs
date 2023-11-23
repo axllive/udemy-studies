@@ -70,7 +70,8 @@ namespace API.Controllers
                 username = usr.UserName,
                 token = _tokenService.CreateToken(usr),
                 currentphotourl = usr.Photos.FirstOrDefault(d => d.IsMain) == null ? "" : usr.Photos.FirstOrDefault(d => d.IsMain).Url,
-                gender = usr.Gender
+                gender = usr.Gender,
+                knownas = usr.KnownAs
             };
             return usrn;
         }

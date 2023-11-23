@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
@@ -19,11 +20,31 @@ usrParams: UserParams | undefined;
 usr: User | undefined;
 genderList = [{value: 'male', display: 'Woman'}, {value: 'female', display: 'Man'}, {value: 'Other', display: 'All'}];
 
-  constructor( public membersService: MembersService, private accountService: AccountService ) {
+  constructor( public membersService: MembersService, private accountService: AccountService, router: Router ) {
+      router.events.subscribe({
+        next: (event) => {
+          if(event instanceof NavigationStart){
+            // Verifica se a navegação é devido a um popstate (pressionar o botão voltar)
+            const isPopState = event.navigationTrigger === 'popstate';
+
+            // Verifica se há um estado anterior na pilha de histórico
+            const hasPreviousState = router.getCurrentNavigation()?.previousNavigation != null;
+            
+            //meu estado de filtro só é recuperado se há um evento VOLTAR
+            if (isPopState && hasPreviousState)
+              this.usrParams = this.membersService.getUserParams();
+          }
+            
+        }
+      });
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user =>{
           if (user){
-            this.usrParams = new UserParams(user);
+            let prms = this.membersService.getUserParams();
+            if(prms){
+              this.usrParams = this.membersService.getUserParams();
+            }
+            else{ this.usrParams = new UserParams(user); }
             this.usr = user;
           }
         }
@@ -36,16 +57,18 @@ genderList = [{value: 'male', display: 'Woman'}, {value: 'female', display: 'Man
   ngOnInit(): void {  }
 
   loadMembers(){
-    if(this.usrParams)
-    this.membersService.getMembers(this.usrParams).subscribe({
-      next: response => {
-        if(response.result && response.pagination)
-        {
-          this.members = response.result;
-          this.pagination = response.pagination;
+    if(this.usrParams){
+      this.membersService.setUserParams(this.usrParams);
+      this.membersService.getMembers(this.usrParams).subscribe({
+        next: response => {
+          if(response.result && response.pagination)
+          {
+            this.members = response.result;
+            this.pagination = response.pagination;
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   resetFilter(){
