@@ -2,7 +2,8 @@
     <ng-container *ngIf="(member.photos.length > 0) else NoPhoto">
         <div class="card mb-3">
             <div class="card-body text-center">
-              <h5 class="card-title"><i class="fa fa-user"></i> {{member.kwonas}}, {{member.age}}y</h5>
+              <h5 class="card-title"><i class="fa fa-user"></i> {{member.kwonas}}</h5>
+              <h5 class="card-title">{{member.age}}y</h5>
               <h6 class="card-subtitle text-muted"><i class="fa fa-home"></i> {{member.city}}</h6>
             </div>
             <div class="card-img-wrapper">

@@ -12,12 +12,27 @@
         flex-direction: column !important;
         align-items: center;
     }
+    .flex-col{
+        width: 100% !important;
+    }
     .col-2, .col-3, .col-4, .col-5, .col-8 {
         width: 90% !important;
+    }
+    .btn-back{
+        display: none;
     }
 }
 .table{
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
+}
+.btn-back{
+    position: fixed;
+    top: 89.75px;
+    z-index: 1;
+    width: 80%;
+}
+.btn-link:hover .fa-arrow-circle-left{
+    color: var(--bs-btn-hover-color) !important;
 }

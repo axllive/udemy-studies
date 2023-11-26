@@ -1,18 +1,18 @@
-<div class="row" >
-  <table class="table table-hover">
+<div class="row btn-back" >
+<!--   <table class="table table-hover">
     <tr class="table-light">
-      <th scope="row">
+      <th scope="row"> -->
         <div class=" d-flex align-items-end justify-content-end" >
-          <button class="btn btn-link p-0 text-black" style="text-decoration: none;" (click)="voltar()">Back to matches <i class="fa fa-arrow-circle-left fa-lg text-black" aria-hidden="true"></i>
+          <button class="btn btn-link p-0 text-black" style="text-decoration: none;" (click)="voltar()"><i class="fa fa-arrow-circle-left fa-2x text-white" aria-hidden="true"></i>
           </button>
         </div>
-      </th>      
+<!--       </th>      
     </tr>
-  </table>
+  </table> -->
 </div>
 <div *ngIf="member" class="row flex-row">
     <div class="card col-4" >
-        <img src="{{mainPhoto || './assets/user.png'}}" class="img-main">
+        <img src="{{mainPhoto || 'https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
         <div class="card-body">
           <h5 class="card-title">{{member.city}} - {{member.country}}</h5>
@@ -34,22 +34,22 @@
           Last active: {{member.lastactive | timeago }}
         </div>
     </div>
-    <div class="col-7 px-3 mt-2" >
+    <div class="col-7 px-3 mt-2 flex-col" >
         <tabset>
             <tab class="nav nav-tabs" role="tablist" heading="Looking for">
-              <div class="col-md-7 p-1">
+              <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Looking for heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.lookingfor}}</p>
               </div>
             </tab>
             <tab class="nav nav-tabs" role="tablist" heading="Profile">
-              <div class="col-md-7 p-1">
+              <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.bio}}</p>
               </div>
             </tab>
             <tab class="nav nav-tabs" role="tablist" heading="Interests">
-              <div class="col-md-7 p-1">
+              <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Interests heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.intrests}}</p>
               </div>
