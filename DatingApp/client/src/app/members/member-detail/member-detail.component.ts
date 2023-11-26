@@ -7,6 +7,7 @@ import { TimeagoModule } from 'ngx-timeago';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-member-detail',
@@ -20,7 +21,7 @@ export class MemberDetailComponent implements OnInit{
   images: GalleryItem[] = [];
   mainPhoto: string | undefined = "";
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private location: Location) {  }
+  constructor(private memberService: MembersService, private route: ActivatedRoute, private location: Location, private toast: ToastrService) {  }
   
   ngOnInit(): void { this.loadMember() }
 
@@ -45,5 +46,14 @@ export class MemberDetailComponent implements OnInit{
   
   voltar() {
     this.location.back();
+  }
+
+  
+  addLike(member: Member){
+    this.memberService.addLike(member.username).subscribe({
+      next: () => {
+        this.toast.success('You have liked ' + member.kwonas);
+      }
+    })
   }
 }

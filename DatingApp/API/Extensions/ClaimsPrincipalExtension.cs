@@ -12,10 +12,10 @@ namespace API.Extensions
         {
             return user.FindFirst(ClaimTypes.Name)?.Value;
         }
-        public static string GetUserId(this ClaimsPrincipal user)
+        public static int GetUserId(this ClaimsPrincipal user)
         {
             var usr = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return usr;
+            return int.Parse(usr);
         }
     }
 }
