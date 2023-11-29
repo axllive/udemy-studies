@@ -51,6 +51,21 @@ namespace API.DTOs
             .Map(destino => destino.url, origem => origem.Url)
             .Map(destino => destino.ismain, origem => origem.IsMain);
 
+            
+            TypeAdapterConfig<Message, MessageDTO>
+            .NewConfig()
+            .TwoWays() //DISPONÍVEL APENAS PARA PROPRIEDADE<>PROPRIEDADE, Ñ FUNCIONA COM OBJ RELACIONADO
+            .Map(destino => destino.id, origem => origem.Id)
+            .Map(destino => destino.senderid, origem => origem.SenderId)
+            .Map(destino => destino.senderusername, origem => origem.SenderUsername)
+            .Map(destino => destino.recipientid, origem => origem.RecipientId)
+            .Map(destino => destino.recipientusername, origem => origem.RecipientUsername)
+            .Map(destino => destino.content, origem => origem.Content)
+            .Map(destino => destino.dateread, origem => origem.DateRead)
+            .Map(destino => destino.messagesent, origem => origem.MessageSent)
+            .Map(destino => destino.senderphotourl, origem => origem.Sender.Photos.FirstOrDefault(x => x.IsMain).Url )
+            .Map(destino => destino.recipientphotourl, origem => origem.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url );
+
         }
 
     }
