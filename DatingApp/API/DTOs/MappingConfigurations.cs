@@ -54,7 +54,6 @@ namespace API.DTOs
             
             TypeAdapterConfig<Message, MessageDTO>
             .NewConfig()
-            .TwoWays() //DISPONÍVEL APENAS PARA PROPRIEDADE<>PROPRIEDADE, Ñ FUNCIONA COM OBJ RELACIONADO
             .Map(destino => destino.id, origem => origem.Id)
             .Map(destino => destino.senderid, origem => origem.SenderId)
             .Map(destino => destino.senderusername, origem => origem.SenderUsername)
@@ -65,6 +64,13 @@ namespace API.DTOs
             .Map(destino => destino.messagesent, origem => origem.MessageSent)
             .Map(destino => destino.senderphotourl, origem => origem.Sender.Photos.FirstOrDefault(x => x.IsMain).Url )
             .Map(destino => destino.recipientphotourl, origem => origem.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url );
+
+
+            TypeAdapterConfig<AppUser, MemberDTO>
+            .NewConfig()
+            .Map(destino => destino.username, origem => origem.UserName)
+            .Map(destino => destino.knownas, origem => origem.KnownAs)
+            .Map(destino => destino.photourl, origem => origem.Photos.FirstOrDefault(x => x.IsMain).Url);
 
         }
 
