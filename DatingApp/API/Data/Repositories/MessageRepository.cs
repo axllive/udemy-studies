@@ -30,7 +30,7 @@ namespace API.Data.Repositories
             _context.Messages.Remove(msg);
         }
 
-        public async Task<IEnumerable<AppUser>> GetChatedUsers(string username)
+        public async Task<PagedList<ChatedMemberDTO>> GetChatedUsers(string username)
         {
             IEnumerable<Message> msgs = await _context.Messages
                 .Include( x => x.Sender)
@@ -41,19 +41,37 @@ namespace API.Data.Repositories
                 .AsNoTracking()
                 .ToListAsync();
             
-            List<AppUser> chatedUsrs = new();
-
+            List<ChatedMemberDTO> chatedUsrs = new();
+            
             foreach (var item in msgs)
             {
                 if(item.SenderUsername == username){
-                    chatedUsrs.Add(item.Recipient);
+                    chatedUsrs.Add(
+                        new(){
+                            username = item.Recipient.UserName,
+                            knownas = item.Recipient.KnownAs,
+                            lastactive = item.Recipient.LastActive,
+                            photourl = item.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url
+                        }
+                    );
                 }
                 else if(item.RecipientUsername == username){
-                    chatedUsrs.Add(item.Sender);
+                    chatedUsrs.Add(
+                        new(){
+                            username = item.Sender.UserName,
+                            knownas = item.Sender.KnownAs,
+                            lastactive = item.Sender.LastActive,
+                            photourl = item.Sender.Photos.FirstOrDefault(x => x.IsMain).Url
+                        }
+                    );
                 }
             }
-
-            return chatedUsrs;
+            
+            MessageParams messageParams= new(){
+                Username = username
+            };
+            return await PagedList<ChatedMemberDTO>
+                .CreateFromListAsync(chatedUsrs.DistinctBy(x => x.username).ToList(), messageParams.PageNumber, messageParams.PageSize);
         }
 
         public async Task<Message> GetMessage(int id)

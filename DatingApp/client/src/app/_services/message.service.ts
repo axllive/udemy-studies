@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getPaginatedResults, getPaginationHeaders } from './paginationHelper';
 import { Message } from '../_models/message';
+import { chatedWith } from '../_models/chatedWith';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,13 @@ export class MessageService {
       params = params.append('Container', container);
       
       return getPaginatedResults<Message[]>(this.baseUrl + 'messages', params, this.http);
+  }
+
+  getChatedUsers(pageNumber: number, pageSize: number){
+    
+    let params = getPaginationHeaders(pageNumber, pageSize);
+
+    return getPaginatedResults<chatedWith[]>(this.baseUrl + 'messages/chatUsers', params, this.http );
   }
 
 }

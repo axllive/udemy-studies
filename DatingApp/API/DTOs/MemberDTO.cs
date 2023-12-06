@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
-    public class MemberDTO
+    public class ChatedMemberDTO
     {
         public string username {get; set;}
         public string knownas { get; set; }
+        public DateTime lastactive { get; set; }
         public string photourl { get; set; }
 
     }

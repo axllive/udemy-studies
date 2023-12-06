@@ -3,6 +3,7 @@ import { Pagination } from '../_models/pagination';
 import { Message } from '../_models/message';
 import { MessageService } from '../_services/message.service';
 import { Member } from '../_models/member';
+import { chatedWith } from '../_models/chatedWith';
 
 @Component({
   selector: 'app-messages',
@@ -11,6 +12,7 @@ import { Member } from '../_models/member';
 })
 export class MessagesComponent implements OnInit {
   messages?: Message[];
+  chatedUsers?: chatedWith[];
   usersChated?: Member[];
   pagination?: Pagination;
   container = 'Outbox';
@@ -24,6 +26,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMessages();
+    this.loadChatedWith();
   }
 
   loadMessages(){
@@ -36,7 +39,15 @@ export class MessagesComponent implements OnInit {
     })
   }
 
-  
+  loadChatedWith(){
+    this.messageService.getChatedUsers(this.pageNumber, this.pageSize).subscribe({
+      next: response =>{
+        this.chatedUsers = response.result;
+        console.log(this.chatedUsers);
+        this.pagination = response.pagination;
+      }
+    })
+  }
 
   pageChanges(event: any){
     if(this.pageNumber != event.page){

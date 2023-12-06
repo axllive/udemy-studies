@@ -66,10 +66,11 @@ namespace API.DTOs
             .Map(destino => destino.recipientphotourl, origem => origem.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url );
 
 
-            TypeAdapterConfig<AppUser, MemberDTO>
+            TypeAdapterConfig<AppUser, ChatedMemberDTO>
             .NewConfig()
             .Map(destino => destino.username, origem => origem.UserName)
             .Map(destino => destino.knownas, origem => origem.KnownAs)
+            .Map(destino => destino.lastactive, origem => origem.LastActive)
             .Map(destino => destino.photourl, origem => origem.Photos.FirstOrDefault(x => x.IsMain).Url);
 
         }
