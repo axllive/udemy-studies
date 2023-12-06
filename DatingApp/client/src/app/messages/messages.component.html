@@ -29,7 +29,7 @@
                                     <div class="input-group">
                                         <input class="form-control" placeholder="Search">
                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary" >
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </div>
@@ -38,13 +38,14 @@
                                 <ul class="users" *ngFor="let usr of chatedUsers" >
                                     <app-user-chated [user]="usr" ></app-user-chated>
                                 </ul>
-                                <div class="d-flex justify-content-center" *ngIf="pagination" style="flex:auto; align-items: ;">
+                                <div class="d-flex justify-content-center" *ngIf="paginationChated" style="flex:auto; align-items: end;">
                                     <pagination 
                                                 [boundaryLinks]="true" 
-                                                [totalItems]="pagination.totalItems"
-                                                [itemsPerPage]="pagination.itemsPerPage"
+                                                [totalItems]="paginationChated.totalItems"
+                                                [itemsPerPage]="paginationChated.itemsPerPage"
                                                 [maxSize]="8"
-                                                [(ngModel)]="pagination.currentPage"
+                                                [(ngModel)]="paginationChated.currentPage"
+                                                (pageChanged)="pageChanged($event)"
                                                 previousText="&lsaquo;" 
                                                 nextText="&rsaquo;" 
                                                 firstText="&laquo;" 

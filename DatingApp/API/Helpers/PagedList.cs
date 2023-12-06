@@ -27,7 +27,7 @@ namespace API.Helpers
             return new PagedList<T>(itens, count, pageNumber, pageSize);
         }
         public static async Task<PagedList<T>> CreateFromListAsync(
-            List<T> source, int pageNumber, int pageSize)
+            IEnumerable<T> source, int pageNumber, int pageSize)
         {
             int count = source.Count();
             var itens = source.Skip((pageNumber -1) * pageSize).Take(pageSize).ToList();

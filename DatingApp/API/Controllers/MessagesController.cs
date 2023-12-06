@@ -54,10 +54,10 @@ namespace API.Controllers
         }
     
         [HttpGet("chatUsers")]
-        public async Task<ActionResult<PagedList<ChatedMemberDTO>>> GetChatedUsers(){
-            string usrname = User.GetUsername();
+        public async Task<ActionResult<PagedList<ChatedMemberDTO>>> GetChatedUsers([FromQuery] MessageParams messageParams){
+            messageParams.Username = User.GetUsername();
             
-            PagedList<ChatedMemberDTO> chatedUsrs = await _messageRepository.GetChatedUsers(usrname);
+            PagedList<ChatedMemberDTO> chatedUsrs = await _messageRepository.GetChatedUsers(messageParams);
 
              Response.AddPaginationHeader(
                 new PaginationHeader(chatedUsrs.CurrentPage, chatedUsrs.PageSize, chatedUsrs.TotalCount, chatedUsrs.TotalPages)

@@ -7,6 +7,7 @@ using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repositories
@@ -30,48 +31,24 @@ namespace API.Data.Repositories
             _context.Messages.Remove(msg);
         }
 
-        public async Task<PagedList<ChatedMemberDTO>> GetChatedUsers(string username)
+        public async Task<PagedList<ChatedMemberDTO>> GetChatedUsers([FromQuery] MessageParams messageParams)
         {
-            IEnumerable<Message> msgs = await _context.Messages
-                .Include( x => x.Sender)
-                    .ThenInclude(x => x.Photos)
-                .Include( x => x.Recipient)
-                    .ThenInclude(x => x.Photos)
-                .Where(x => x.SenderUsername == username || x.RecipientUsername == username)
-                .AsNoTracking()
-                .ToListAsync();
-            
-            List<ChatedMemberDTO> chatedUsrs = new();
-            
-            foreach (var item in msgs)
-            {
-                if(item.SenderUsername == username){
-                    chatedUsrs.Add(
-                        new(){
-                            username = item.Recipient.UserName,
-                            knownas = item.Recipient.KnownAs,
-                            lastactive = item.Recipient.LastActive,
-                            photourl = item.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url
-                        }
-                    );
-                }
-                else if(item.RecipientUsername == username){
-                    chatedUsrs.Add(
-                        new(){
-                            username = item.Sender.UserName,
-                            knownas = item.Sender.KnownAs,
-                            lastactive = item.Sender.LastActive,
-                            photourl = item.Sender.Photos.FirstOrDefault(x => x.IsMain).Url
-                        }
-                    );
-                }
-            }
-            
-            MessageParams messageParams= new(){
-                Username = username
-            };
+            var query = from message in _context.Messages
+                where message.SenderUsername == messageParams.Username || message.RecipientUsername == messageParams.Username 
+                select new ChatedMemberDTO
+                {
+                    username = message.SenderUsername == messageParams.Username ? message.Recipient.UserName: message.Sender.UserName,
+                    knownas = message.SenderUsername == messageParams.Username ? message.Recipient.KnownAs: message.Sender.KnownAs,
+                    lastactive = message.SenderUsername == messageParams.Username ? message.Recipient.LastActive: message.Sender.LastActive,
+                    photourl = message.SenderUsername == messageParams.Username ? message.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url
+                                                                                : message.Sender.Photos.FirstOrDefault(x => x.IsMain).Url
+                };
+
+            /* var chattedMembers = await query.DistinctBy(x => x.username)
+                                            .AsQueryable(); */
+                  
             return await PagedList<ChatedMemberDTO>
-                .CreateFromListAsync(chatedUsrs.DistinctBy(x => x.username).ToList(), messageParams.PageNumber, messageParams.PageSize);
+                .CreateFromListAsync(query.ToList().DistinctBy(x => x.username), messageParams.PageNumber, messageParams.PageSize);
         }
 
         public async Task<Message> GetMessage(int id)

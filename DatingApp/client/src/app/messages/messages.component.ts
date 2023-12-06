@@ -15,9 +15,13 @@ export class MessagesComponent implements OnInit {
   chatedUsers?: chatedWith[];
   usersChated?: Member[];
   pagination?: Pagination;
+  paginationChated?: Pagination;
   container = 'Outbox';
   pageNumber = 1;
   pageSize = 5;
+  chatPageNumber = 1;
+  chatPageSize = 8;
+  searchQuery?: string;
 
   /**
    *
@@ -40,19 +44,29 @@ export class MessagesComponent implements OnInit {
   }
 
   loadChatedWith(){
-    this.messageService.getChatedUsers(this.pageNumber, this.pageSize).subscribe({
+    this.messageService.getChatedUsers(this.chatPageNumber, this.chatPageSize).subscribe({
       next: response =>{
         this.chatedUsers = response.result;
-        console.log(this.chatedUsers);
-        this.pagination = response.pagination;
+        this.paginationChated = response.pagination;
       }
     })
   }
-
+  pageChanged(event: any){
+    if(this.chatPageNumber != event.page){
+      this.chatPageNumber = event.page;
+      this.loadChatedWith();
+    }
+  }
   pageChanges(event: any){
     if(this.pageNumber != event.page){
       this.pageNumber = event.page;
       this.loadMessages();
     }
+  }
+
+  filter(){
+      if(this.searchQuery){
+        var query: string = this.searchQuery;
+        this.chatedUsers = this.chatedUsers?.filter( x=> x.username.includes(query))}
   }
 }
