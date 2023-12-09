@@ -80,7 +80,7 @@ namespace API.Controllers
             return messages;
         }
     
-        [HttpGet("thread/{username}")]
+        [HttpGet("thread/")]
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessageThread(string username)
         {
             var currentUserName = User.GetUsername();

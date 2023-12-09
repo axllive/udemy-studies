@@ -4,6 +4,7 @@ import { Message } from '../_models/message';
 import { MessageService } from '../_services/message.service';
 import { Member } from '../_models/member';
 import { chatedWith } from '../_models/chatedWith';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-messages',
@@ -13,6 +14,7 @@ import { chatedWith } from '../_models/chatedWith';
 export class MessagesComponent implements OnInit {
   messages?: Message[];
   chatedUsers?: chatedWith[];
+  selectedChatUsr?: chatedWith;
   usersChated?: Member[];
   pagination?: Pagination;
   paginationChated?: Pagination;
@@ -26,10 +28,9 @@ export class MessagesComponent implements OnInit {
   /**
    *
    */
-  constructor(private messageService: MessageService) {  }
+  constructor(private messageService: MessageService, private accountService: AccountService) {  }
 
   ngOnInit(): void {
-    this.loadMessages();
     this.loadChatedWith();
   }
 
@@ -37,7 +38,6 @@ export class MessagesComponent implements OnInit {
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
       next: response =>{
         this.messages = response.result;
-        console.log(this.messages);
         this.pagination = response.pagination;
       }
     })
@@ -62,6 +62,17 @@ export class MessagesComponent implements OnInit {
       this.pageNumber = event.page;
       this.loadMessages();
     }
+  }
+
+  getMessageThread(usr: chatedWith){
+    this.selectedChatUsr = usr;
+    this.messageService.getMessageThread(this.chatPageNumber, this.chatPageSize, usr.username).subscribe({
+      next: response =>{
+        this.messages = response.result;
+        console.log(this.messages);
+        this.pagination = response.pagination;
+      }
+    })
   }
 
   filter(){

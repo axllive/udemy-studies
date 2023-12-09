@@ -14,4 +14,12 @@ export class UserChatedComponent implements OnInit{
   
   ngOnInit(): void {  }
 
+  active(event: any){
+    const userElement = document.querySelectorAll('.person');
+    
+      userElement.forEach(element => {
+        element.classList.remove('active-user');
+      });
+      event.currentTarget.classList.toggle('active-user');
+  }
 }

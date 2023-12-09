@@ -1,6 +1,6 @@
 <ng-container *ngIf="user" >
     <ul class="users">
-    <li class="person" data-chat="person1">
+    <li class="person" data-chat="person1" (click)="active($event)">
         <div class="user">
             <img src="{{user.photourl}}" alt="Retail Admin">
             <span class="status busy"></span>

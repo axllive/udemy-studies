@@ -29,4 +29,11 @@ export class MessageService {
     return getPaginatedResults<chatedWith[]>(this.baseUrl + 'messages/chatUsers', params, this.http );
   }
 
+  getMessageThread(pageNumber: number, pageSize: number, username: string){
+    
+    let params = getPaginationHeaders(pageNumber, pageSize);
+
+    return getPaginatedResults<Message[]>(this.baseUrl + 'messages/thread/?username=' + username, params, this.http );
+  }
+
 }

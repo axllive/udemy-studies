@@ -31,6 +31,7 @@ import { TextAreaInputComponent } from './_forms/text-area-input/text-area-input
 import { DatepickerInputComponent } from './_forms/datepicker-input/datepicker-input.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserChatedComponent } from './messages/user-chated/user-chated.component';
+import { ChatComponent } from './messages/chat/chat.component';
 /* Adicionando comentários ao Angular */
 /* @NgModule
   decorator** resposável pela raiz do cliente, como se fosse a program
@@ -58,7 +59,8 @@ import { UserChatedComponent } from './messages/user-chated/user-chated.componen
     TextInputComponent,
     TextAreaInputComponent,
     DatepickerInputComponent,
-    UserChatedComponent
+    UserChatedComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
