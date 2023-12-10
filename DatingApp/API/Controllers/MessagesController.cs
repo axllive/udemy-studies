@@ -84,7 +84,8 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<MessageDTO>>> GetMessageThread(string username)
         {
             var currentUserName = User.GetUsername();
-            return Ok(await _messageRepository.GetMessageThread(currentUserName, username));
+            IEnumerable<MessageDTO> msgs = await _messageRepository.GetMessageThread(currentUserName, username);
+            return Ok(msgs.OrderBy(x => x.messagesent));
         }
     }
 } 

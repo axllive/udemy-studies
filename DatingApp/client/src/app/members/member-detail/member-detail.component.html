@@ -28,7 +28,7 @@
           Last active: {{member.lastactive | timeago }}
         </div>
     </div>
-    <div class="col-7 px-3 mt-2 flex-col" >
+    <div class="col-8 px-3 mt-2 flex-col" >
         <tabset>
             <tab class="nav nav-tabs" role="tablist" heading="Looking for">
               <div class="col-md-12 p-1">
@@ -53,15 +53,22 @@
                 <h2 class="featurette-heading">Photos heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <div>
                   <gallery *ngIf="photoTab.active" [items]="images" ></gallery>
-                </div>                
+                </div>
               </div>
             </tab>
-            <tab class="nav nav-tabs" role="tablist" heading="More">
-              <div class="col-md-8 p-1">
-                <h2 class="featurette-heading">More heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+            <tab class="nav nav-tabs" role="tablist" heading="Messages" >
+              <div class="col-xl-10 col-lg-10 col-md-10 col-sm-11 col-11 users-chat p-1">
+                  <div class="selected-user">
+                    <span>To: <span class="name">{{member.kwonas}}</span></span>
+                </div>
+                <div class="chat-container" >
+                  <app-chat [messages]="messages" ></app-chat>
+                    <div class="form-group mt-3 mb-0">
+                        <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+                    </div>
+                </div>
               </div>
-            </tab> 
+            </tab>
         </tabset>
     </div>
 </div>

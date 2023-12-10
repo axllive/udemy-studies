@@ -60,7 +60,6 @@ import { ChatComponent } from './messages/chat/chat.component';
     TextAreaInputComponent,
     DatepickerInputComponent,
     UserChatedComponent,
-    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -72,8 +71,10 @@ import { ChatComponent } from './messages/chat/chat.component';
     SharedModule,
     TabsModule.forRoot(),
     CollapseModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ChatComponent
   ],
+  exports: [ChatComponent],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

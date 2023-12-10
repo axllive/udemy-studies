@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { TimeagoModule } from 'ngx-timeago';
 import { Message } from 'src/app/_models/message';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-chat',
+  standalone: true,
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.css'],
+  imports: [CommonModule, TimeagoModule]
 })
 export class ChatComponent implements OnInit{
   @Input() messages: Message[] | undefined;
