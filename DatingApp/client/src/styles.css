@@ -2,3 +2,6 @@
 :root {
     --cor-sender: #35b1de;
   }
+  .tab-content{
+    height: 100% !important;
+  }

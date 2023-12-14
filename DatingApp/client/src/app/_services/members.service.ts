@@ -63,11 +63,8 @@ export class MembersService {
       //é necessário tipá-lo dentro do Observable
       map(( (member : Member) =>{
         const usr = member;
-        if (usr) {
-          this.currentUserSource.next(usr);
-          return usr;
-        }
-        else return;
+        this.currentUserSource.next(usr);
+        return usr;
       })
     )
     )

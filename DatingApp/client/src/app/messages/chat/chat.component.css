@@ -393,6 +393,7 @@ ul {
     margin-bottom: 2rem;
     box-shadow: none;
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .chatContainerScroll::-webkit-scrollbar {
     display: none;

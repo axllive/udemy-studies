@@ -34,7 +34,10 @@
                     <a class="badge bg-primary p-2 pill-btn" (click)="addLike(member)"><i class="fa fa-heart"></i></a>
                   </li>
                   <li class="list-inline-item">
-                    <a class="badge bg-primary p-2 pill-btn"><i class="fa fa-envelope"></i></a>
+                    <a 
+                    routerLink="/members/{{member.username}}"
+                    [queryParams]="{tab: 'Messages'}"
+                    class="badge bg-primary p-2 pill-btn"><i class="fa fa-envelope"></i></a>
                   </li>
                 </ul>
               </div>              
@@ -72,10 +75,13 @@
                 ><i class="fa fa-user"></i></a>
               </li>
               <li class="list-inline-item">
-                <a class="badge bg-primary p-2 pill-btn"><i class="fa fa-heart"></i></a>
+                <a (click)="addLike(member)" class="badge bg-primary p-2 pill-btn"><i class="fa fa-heart"></i></a>
               </li>
               <li class="list-inline-item">
-                <a class="badge bg-primary p-2 pill-btn"><i class="fa fa-envelope"></i></a>
+                <a 
+                routerLink="/members/{{member.username}}"
+                [queryParams]="{tab: 'Messages'}"
+                class="badge bg-primary p-2 pill-btn"><i class="fa fa-envelope"></i></a>
               </li>
             </ul>
           </div>              

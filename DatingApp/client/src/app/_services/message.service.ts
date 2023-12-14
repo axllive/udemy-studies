@@ -36,4 +36,8 @@ export class MessageService {
     return getPaginatedResults<Message[]>(this.baseUrl + 'messages/thread/?username=' + username, params, this.http );
   }
 
+  sendMessage(username: string, content: string){
+    return this.http.post<Message>(this.baseUrl + 'messages', {recipientUsername: username, content});
+  }
+
 }

@@ -4,7 +4,7 @@
           </button>
         </div>
 </div> -->
-<div *ngIf="member" class="row flex-row">
+<div class="row flex-row container-detail">
     <div class="card col-4" >
         <img src="{{mainPhoto || 'https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png'}}" class="img-main">
         <h3 class="card-header">{{member.kwonas}} <span class="card-subtitle text-muted">, {{member.age}}y</span></h3>
@@ -19,7 +19,7 @@
                 <button class="btn btn-primary" (click)="addLike(member)">Like</button>
               </div>
               <div class="w-50 text-center">
-                <button class="btn btn-info px-2">Messages</button>
+                <button class="btn btn-info px-2" (click)="selectTab('Messages')" >Messages</button>
               </div>
             </div>
         </li>
@@ -29,26 +29,26 @@
         </div>
     </div>
     <div class="col-8 px-3 mt-2 flex-col" >
-        <tabset>
-            <tab class="nav nav-tabs" role="tablist" heading="Looking for">
+        <tabset #memberTabs style="height: 100%; display: block;" >
+            <tab class="nav nav-tabs" role="tablist" heading="Looking for" (selectTab)="onTabActivated($event)">
               <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Looking for heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.lookingfor}}</p>
               </div>
             </tab>
-            <tab class="nav nav-tabs" role="tablist" heading="Profile">
+            <tab class="nav nav-tabs" role="tablist" heading="Profile" (selectTab)="onTabActivated($event)">
               <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Profile heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.bio}}</p>
               </div>
             </tab>
-            <tab class="nav nav-tabs" role="tablist" heading="Interests">
+            <tab class="nav nav-tabs" role="tablist" heading="Interests" (selectTab)="onTabActivated($event)">
               <div class="col-md-12 p-1">
                 <h2 class="featurette-heading">Interests heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">{{member.intrests}}</p>
               </div>
             </tab>
-            <tab class="nav nav-tabs" role="tablist" heading="Photos" #photoTab="tab">
+            <tab class="nav nav-tabs" role="tablist" heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
               <div class="col-md-11 p-1">
                 <h2 class="featurette-heading">Photos heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <div>
@@ -56,16 +56,13 @@
                 </div>
               </div>
             </tab>
-            <tab class="nav nav-tabs" role="tablist" heading="Messages" >
-              <div class="col-xl-10 col-lg-10 col-md-10 col-sm-11 col-11 users-chat p-1">
+            <tab class="nav nav-tabs" role="tablist" heading="Messages"  (selectTab)="onTabActivated($event)" style="height: 100%;">
+              <div class="col-xl-10 col-lg-10 col-md-10 col-sm-11 col-11 users-chat p-1" style="height: 100%;">
                   <div class="selected-user">
                     <span>To: <span class="name">{{member.kwonas}}</span></span>
                 </div>
-                <div class="chat-container" >
-                  <app-chat [messages]="messages" ></app-chat>
-                    <div class="form-group mt-3 mb-0">
-                        <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
-                    </div>
+                <div class="chat-container" style="height: 90%;">
+                  <app-chat [messages]="messages" [username]="member.username" style="    height: 100%; display: block;" ></app-chat>
                 </div>
               </div>
             </tab>

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
@@ -22,17 +22,44 @@ import { ChatComponent } from 'src/app/messages/chat/chat.component';
   imports:[CommonModule, TabsModule, GalleryModule, TimeagoModule, ChatComponent]
 })
 export class MemberDetailComponent implements OnInit{
+  @ViewChild('memberTabs', {static: true}) memberTabs?: TabsetComponent;
   messages?: Message[];
-  member: Member | undefined;
+  member: Member = {} as Member;
   images: GalleryItem[] = [];
   mainPhoto: string | undefined = "";
   chatPageNumber = 1;
   chatPageSize = 8;
   pagination?: Pagination;
+  activeTab?: TabDirective;
 
   constructor(private messageService: MessageService, private accountService: AccountService , private memberService: MembersService, private route: ActivatedRoute, private location: Location, private toast: ToastrService) {  }
 
-  ngOnInit(): void { this.loadMember(); }
+  ngOnInit(): void { 
+    this.route.data.subscribe({
+      next: data => this.member = data['member']
+    });
+    this.route.queryParams.subscribe({
+      next: params =>{
+        params['tab'] && this.selectTab(params['tab']);
+      }
+    });
+    
+    this.getImages();
+  }
+
+  onTabActivated(data: TabDirective){
+    this.activeTab = data;
+    if(this.activeTab.heading == 'Messages'){
+      if(this.member)
+        this.getMessageThread(this.member);
+    }
+  }
+
+  selectTab(heading: string){
+    if(this.memberTabs){
+      this.memberTabs.tabs.find(x => x.heading === heading)!.active = true;
+    }
+  }
 
   loadMember(){
     const username = this.route.snapshot.paramMap.get('name');
@@ -40,16 +67,14 @@ export class MemberDetailComponent implements OnInit{
     this.memberService.getMemberByName(username).subscribe({
       next: member => {
         this.member = member;
-        this.mainPhoto = member?.photos.find(x => x.ismain)?.url;
-        this.getImages();
-        if(this.member) 
-        this.getMessageThread(this.member); 
+        
       }
     })
   }
 
   getImages(){
     if(!this.member) return;
+    this.mainPhoto = this.member?.photos.find(x => x.ismain)?.url;
     for (const photo of this.member?.photos){
       this.images.push(new ImageItem({src: photo.url, thumb:photo.url}))
     }
@@ -58,7 +83,6 @@ export class MemberDetailComponent implements OnInit{
   voltar() {
     this.location.back();
   }
-
 
   addLike(member: Member){
     this.memberService.addLike(member.username).subscribe({
@@ -72,7 +96,6 @@ export class MemberDetailComponent implements OnInit{
     this.messageService.getMessageThread(this.chatPageNumber, this.chatPageSize, usr.username).subscribe({
       next: response =>{
         this.messages = response.result;
-        console.log(this.messages);
         this.pagination = response.pagination;
       }
     })
