@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input,  ElementRef, ViewChild} from '@angular/core';
+import { Component, Input,  ElementRef, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TimeagoModule } from 'ngx-timeago';
 import { Message } from 'src/app/_models/message';
@@ -13,13 +13,16 @@ import { MessageService } from 'src/app/_services/message.service';
   styleUrls: ['./chat.component.css'],
   imports: [CommonModule, TimeagoModule, FormsModule]
 })
-export class ChatComponent{
+export class ChatComponent {
   @Input() messages: Message[] | undefined;
   @Input() username?: string;
   @ViewChild('scroll', { read: ElementRef }) public scroll?: ElementRef;
   @ViewChild('messageForm') messageForm?: NgForm;
   currentUsr?: string;
   messageContent = '';
+  @Input('hover-class') hoverClass:any;
+  tempHour = '';
+  parentDom = {} as Document;
 
   constructor(private accountService: AccountService, private messageService: MessageService) {  }
 
@@ -42,4 +45,24 @@ export class ChatComponent{
       }
     })
   }
+
+  cancelSend(msg: Message){
+    console.log(msg);
+  }
+
+  delIcon(event: any){
+    this.tempHour = event.target.parentNode.children[0].textContent;
+    this.parentDom =event.target.parentNode.children[0];
+    event.target.parentNode.children[0].textContent = 'Cancelar envio';
+    event.target.classList.remove('fa-circle-thin');
+    event.target.classList.add('fa-times-circle-o');
+    event.target.classList.add('text-danger');
+  }
+  unreadIcon(event: any){
+    this.parentDom.textContent = this.tempHour;
+    event.target.classList.remove('fa-times-circle-o');
+    event.target.classList.remove('text-danger');
+    event.target.classList.add('fa-circle-thin');
+  }
+
 }

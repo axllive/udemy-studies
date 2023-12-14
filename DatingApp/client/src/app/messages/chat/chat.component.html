@@ -1,7 +1,8 @@
 <ng-container *ngIf="messages else noMessageSelected" >
     <div class="chat-container" style="height: 90%;">
         <ul class="chat-box chatContainerScroll" #scroll  style="height: 80%;">
-            <li  [ngClass]="{'chat-left': msg.senderusername != currentUsr, 'chat-right': msg.senderusername == currentUsr}"  
+            <li  
+            [ngClass]="{'chat-left': msg.senderusername != currentUsr, 'chat-right': msg.senderusername == currentUsr}"  
             *ngFor="let msg of messages">
                 
                 <ng-container *ngIf="msg.recipientusername == currentUsr">  
@@ -10,17 +11,32 @@
                         <div class="chat-name">{{msg.senderusername}}</div>
                     </div>
                     <div class="chat-text">{{msg.content}}</div>
-                    <div class="chat-hour">{{msg.messagesent | timeago }}<span class="fa fa-check-circle" *ngIf="msg.dateread != null" ></span><span class="fa fa-circle-thin" *ngIf="msg.dateread == null" ></span></div>                    
+                    <div class="chat-hour">{{msg.messagesent | timeago }}
+                        <span class="fa fa-check-circle" *ngIf="msg.dateread != null" ></span>
+                        <span class="fa fa-circle-thin" *ngIf="msg.dateread == null" ></span>
+                    </div>                    
                 </ng-container>
 
                 <ng-container *ngIf="msg.senderusername == currentUsr">
-                        <div class="chat-hour">{{msg.messagesent | timeago }}<span class="fa fa-check-circle" *ngIf="msg.dateread != null" ></span><span class="fa fa-circle-thin" *ngIf="msg.dateread == null" ></span></div>
+                        <div class="chat-hour" 
+                            >
+                            <span class="text-white" style="font-size: .75rem;" >{{msg.messagesent | timeago }}</span>                            
+                            <span class="fa fa-check-circle" *ngIf="msg.dateread != null" ></span>
+                            <span 
+                            (mouseover)="delIcon($event)"
+                            (mouseout)="unreadIcon($event)"
+                            (click)="cancelSend(msg)"
+                            class="fa fa-circle-thin"
+                            style="cursor: pointer"
+                            *ngIf="msg.dateread == null" ></span>
+                        </div>
                         <div class="chat-text">{{msg.content}}</div>
                         <div class="chat-avatar">
                             <img src="{{msg.senderphotourl}}" alt="Retail Admin">
                             <div class="chat-name">{{msg.senderusername}}</div>
                         </div>
                 </ng-container>
+
             </li>
         </ul>
         <div class="form-group mt-3 mb-0">
