@@ -69,7 +69,6 @@ export class MessagesComponent implements OnInit {
     this.messageService.getMessageThread(this.chatPageNumber, this.chatPageSize, usr.username).subscribe({
       next: response =>{
         this.messages = response.result;
-        console.log(this.messages);
         this.pagination = response.pagination;
       }
     })

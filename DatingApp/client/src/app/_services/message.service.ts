@@ -40,4 +40,7 @@ export class MessageService {
     return this.http.post<Message>(this.baseUrl + 'messages', {recipientUsername: username, content});
   }
 
+  unsendMessage(messageid: number){
+    return this.http.delete( this.baseUrl + 'messages/unsend/?messageId=' + messageid );
+  }
 }

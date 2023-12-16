@@ -87,5 +87,25 @@ namespace API.Controllers
             IEnumerable<MessageDTO> msgs = await _messageRepository.GetMessageThread(currentUserName, username);
             return Ok(msgs.OrderBy(x => x.messagesent));
         }
+
+        [HttpDelete("unsend/")]
+        public async Task<ActionResult> UnsendMessage(int messageId){
+            var currentUserName = User.GetUsername();
+
+            Message message = await  _messageRepository.FindMessageByID(messageId);
+
+            if(message == null) return NotFound("This message doesnt exist.");
+
+            if(message.SenderUsername != currentUserName) return BadRequest("You cant unsend this message.");
+
+            if(message.DateRead != null) return BadRequest("You cant unsend a read message");
+
+            if( await _messageRepository.Unsend(message) ){
+                return Ok();
+            }
+
+            return BadRequest("Error on unsending message.");
+
+        }
     }
 } 

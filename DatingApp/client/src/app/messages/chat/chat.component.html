@@ -20,14 +20,15 @@
                 <ng-container *ngIf="msg.senderusername == currentUsr">
                         <div class="chat-hour" 
                             >
-                            <span class="text-white" style="font-size: .75rem;" >{{msg.messagesent | timeago }}</span>                            
-                            <span class="fa fa-check-circle" *ngIf="msg.dateread != null" ></span>
+                            <span class="text-white" style="font-size: .75rem; margin-right: .5rem;" >{{msg.messagesent | timeago }}</span>                            
+                            <span class="fa fa-check-circle" 
+                            *ngIf="msg.dateread != null" ></span>
                             <span 
                             (mouseover)="delIcon($event)"
                             (mouseout)="unreadIcon($event)"
                             (click)="cancelSend(msg)"
                             class="fa fa-circle-thin"
-                            style="cursor: pointer"
+                            style="cursor: pointer;"
                             *ngIf="msg.dateread == null" ></span>
                         </div>
                         <div class="chat-text">{{msg.content}}</div>

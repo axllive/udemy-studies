@@ -31,6 +31,11 @@ namespace API.Data.Repositories
             _context.Messages.Remove(msg);
         }
 
+        public async Task<Message> FindMessageByID(int messageId)
+        {
+            return await _context.Messages.FirstOrDefaultAsync(x => x.Id == messageId);
+        }
+
         public async Task<PagedList<ChatedMemberDTO>> GetChatedUsers([FromQuery] MessageParams messageParams)
         {
             var query = from message in _context.Messages
@@ -109,6 +114,12 @@ namespace API.Data.Repositories
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public Task<bool> Unsend(Message msg)
+        {
+            _context.Entry(msg).State = EntityState.Deleted;
+            return SaveAllAsync();
         }
     }
 }

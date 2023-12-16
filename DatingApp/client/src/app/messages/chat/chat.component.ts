@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input,  ElementRef, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TimeagoModule } from 'ngx-timeago';
+import { ToastrService } from 'ngx-toastr';
 import { Message } from 'src/app/_models/message';
 import { AccountService } from 'src/app/_services/account.service';
 import { MessageService } from 'src/app/_services/message.service';
@@ -24,7 +25,7 @@ export class ChatComponent {
   tempHour = '';
   parentDom = {} as Document;
 
-  constructor(private accountService: AccountService, private messageService: MessageService) {  }
+  constructor(private accountService: AccountService, private messageService: MessageService, private toast: ToastrService) {  }
 
   ngAfterViewChecked(): void { 
     if (this.accountService.getCurrentUser() != "") {
@@ -47,13 +48,21 @@ export class ChatComponent {
   }
 
   cancelSend(msg: Message){
-    console.log(msg);
+    if(msg.dateread == null)
+      this.messageService.unsendMessage(msg.id).subscribe({
+      next: () => {
+        
+        this.messages?.splice( this.messages?.findIndex( x => x.id == msg.id) , 1);
+
+        this.toast.success('Message unsent');
+      }
+      })
   }
 
   delIcon(event: any){
     this.tempHour = event.target.parentNode.children[0].textContent;
     this.parentDom =event.target.parentNode.children[0];
-    event.target.parentNode.children[0].textContent = 'Cancelar envio';
+    event.target.parentNode.children[0].textContent = 'Unsend ';
     event.target.classList.remove('fa-circle-thin');
     event.target.classList.add('fa-times-circle-o');
     event.target.classList.add('text-danger');
