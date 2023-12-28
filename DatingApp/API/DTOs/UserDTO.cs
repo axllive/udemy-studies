@@ -7,5 +7,6 @@ namespace API.DTOs
         public string currentphotourl {get; set;}
         public string gender {get; set;}
         public string knownas {get; set;}
+        public string[] roles {get; set;}
     }
 }

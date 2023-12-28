@@ -26,7 +26,7 @@ public class UsersController : BaseAPiController
         _tokenService = tokenService;
         _photoService = photoService;
     }
-
+    
     [HttpGet]
     public async Task<ActionResult<PagedList<RegisterDTO>>> GetUsers([FromQuery]UserParams usrParams)
     {

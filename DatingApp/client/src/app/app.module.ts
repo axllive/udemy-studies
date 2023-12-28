@@ -32,6 +32,11 @@ import { DatepickerInputComponent } from './_forms/datepicker-input/datepicker-i
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserChatedComponent } from './messages/user-chated/user-chated.component';
 import { ChatComponent } from './messages/chat/chat.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 /* Adicionando comentários ao Angular */
 /* @NgModule
   decorator** resposável pela raiz do cliente, como se fosse a program
@@ -60,6 +65,11 @@ import { ChatComponent } from './messages/chat/chat.component';
     TextAreaInputComponent,
     DatepickerInputComponent,
     UserChatedComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent,
+    RolesModalComponent,
   ],
   imports: [
     BrowserModule,

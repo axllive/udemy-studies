@@ -46,12 +46,12 @@ namespace API.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Message_RecipientId",
-                table: "Message",
+                table: "Messages",
                 column: "RecipientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Message_SenderId",
-                table: "Message",
+                table: "Messages",
                 column: "SenderId");
         }
 

@@ -2,8 +2,10 @@ using System.Text.Json.Serialization;
 using API;
 using API.Data;
 using API.DTOs;
+using API.Entities;
 using API.Extensions;
 using API.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,8 +45,11 @@ using var scope = app.Services.CreateScope();
     try
     {
         var context = services.GetRequiredService<DBContext>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
         await context.Database.MigrateAsync();
-        await Seed.SeedUsers(context);
+        await Seed.SeedUsers(userManager, roleManager);
+        
         
     }
     catch (System.Exception ex)

@@ -222,3 +222,5 @@ C:\Users\axll\udemy-studies\DatingApp\API\obj\Debug\net7.0\API.genruntimeconfig.
 C:\Users\axll\udemy-studies\DatingApp\API\obj\Debug\net7.0\ref\API.dll
 C:\Users\axll\udemy-studies\DatingApp\API\bin\Debug\net7.0\CloudinaryDotNet.dll
 C:\Users\axll\udemy-studies\DatingApp\API\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\axll\udemy-studies\DatingApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\axll\udemy-studies\DatingApp\API\obj\Debug\net7.0\API.sourcelink.json

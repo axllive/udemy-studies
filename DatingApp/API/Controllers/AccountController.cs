@@ -5,6 +5,7 @@ using API.Entities;
 using API.Interfaces;
 using API.Services;
 using Mapster;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,11 @@ namespace API.Controllers
 {
     public class AccountController : BaseAPiController
     {
-        public readonly DBContext _context;
         public readonly ITokenService _tokenService;
-        public AccountController(DBContext dBContext, ITokenService tokenService)
+        private readonly UserManager<AppUser> _userManager;
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService)
         {
-            _context = dBContext;
+            _userManager = userManager;
             _tokenService = tokenService;
         }
 
@@ -28,57 +29,68 @@ namespace API.Controllers
                 return BadRequest("User already exists.");
             }
 
-            using var hmac = new HMACSHA512();
-
             AppUser usr = registerDTO.Adapt<AppUser>();
 
             
-                usr.UserName = registerDTO.username.ToLower();
-                usr.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.password));
-                usr.PasswordSalt = hmac.Key;
+            usr.UserName = registerDTO.username.ToLower();
+            usr.Photos.Add(
+                new Photo(){
+                    IsMain = true,
+                    Url = $"https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png"
+                }
+            );
 
-            _context.Users.Add(usr);
-            await _context.SaveChangesAsync();
+            var result = await _userManager.CreateAsync(usr, registerDTO.password);
+
+            if(!result.Succeeded) return BadRequest(result.Errors);
+            
+            var roleResult = await _userManager.AddToRoleAsync(usr, "Member");
+            
+            if(!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+
+            var roles = await _userManager.GetRolesAsync(usr);
+
             return new UserDTO
             {
                 username = usr.UserName,
-                token = _tokenService.CreateToken(usr),
-                knownas = usr.KnownAs
+                gender = usr.Gender,
+                token = await _tokenService.CreateToken(usr),
+                knownas = usr.KnownAs,
+                currentphotourl =$"https://upload.wikimedia.org/wikipedia/commons/2/2f/No-photo-m.png",
+                roles = roles.ToArray()
             };
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginData)
         {
-            AppUser usr = await _context.Users
+            AppUser usr = await _userManager.Users
             .Include(d => d.Photos)
             .SingleOrDefaultAsync(d => d.UserName == loginData.username);
 
             if (usr == null) return Unauthorized("User not found.");
 
-            using var hmac = new HMACSHA512(usr.PasswordSalt);
+            var result = await _userManager.CheckPasswordAsync(usr, loginData.password);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginData.password));
+            if(!result) return Unauthorized();
 
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != usr.PasswordHash[i]) return Unauthorized("Invalid password.");
-            }
+            var roles = await _userManager.GetRolesAsync(usr);
 
             UserDTO usrn = new UserDTO
             {
                 username = usr.UserName,
-                token = _tokenService.CreateToken(usr),
+                token = await _tokenService.CreateToken(usr),
                 currentphotourl = usr.Photos.FirstOrDefault(d => d.IsMain) == null ? "" : usr.Photos.FirstOrDefault(d => d.IsMain).Url,
                 gender = usr.Gender,
-                knownas = usr.KnownAs
+                knownas = usr.KnownAs,
+                roles = roles.ToArray()
             };
             return usrn;
         }
 
         public async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username);
+            return await _userManager.Users.AnyAsync(x => x.UserName == username);
         }
     }
 }

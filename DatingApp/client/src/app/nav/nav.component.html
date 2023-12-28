@@ -21,6 +21,9 @@
                     <li class="nav-item">
                         <a class="nav-link " routerLink="/messages" routerLinkActive="active" tabindex="-1" (click)="isCollapsed = !isCollapsed">Messages</a>
                     </li>
+                    <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+                        <a class="nav-link " routerLink="/admin" routerLinkActive="active" tabindex="-1" (click)="isCollapsed = !isCollapsed">Administration</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link " routerLink="/errors" routerLinkActive="active" tabindex="-1" (click)="isCollapsed = !isCollapsed">Errors</a>
                     </li>
